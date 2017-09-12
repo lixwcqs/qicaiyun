@@ -32,6 +32,10 @@ public class MyBatisConfig {
      */
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource ds) throws Exception {
+        /**
+         * SqlSessionFactoryBean 对应于原生的mybatis
+         * MybatisSqlSessionFactoryBean 对应于mybatis-plus
+         */
 //        SqlSessionFactoryBean fb = new SqlSessionFactoryBean();
         MybatisSqlSessionFactoryBean fb = new MybatisSqlSessionFactoryBean();
         fb.setDataSource(ds);//指定数据源(这个必须有，否则报错)
