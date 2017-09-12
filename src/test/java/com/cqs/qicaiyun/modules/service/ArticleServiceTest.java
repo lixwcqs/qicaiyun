@@ -1,15 +1,14 @@
 package com.cqs.qicaiyun.modules.service;
 
-import com.cqs.config.BaseConfigurationTestNG;
-import com.cqs.jianshu.modules.entity.Article;
-import com.cqs.jianshu.modules.entity.Content;
-import com.cqs.mock.ArticleMock;
-import com.cqs.mock.ContentMock;
+import com.cqs.configuration.BaseConfigurationTestNG;
+import com.cqs.qicaiyun.mock.ArticleMock;
+import com.cqs.qicaiyun.mock.ContentMock;
+import com.cqs.qicaiyun.modules.entity.Article;
+import com.cqs.qicaiyun.modules.entity.Content;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
 
 import javax.annotation.Resource;
-
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
@@ -37,7 +36,7 @@ public class ArticleServiceTest extends BaseConfigurationTestNG {
 
     @Test
     public void selectById() throws Exception {
-        Article article = service.selectById(899306968995422200L);
+        Article article = service.selectById(901074896795279362L);
         assertNotNull(article);
     }
 

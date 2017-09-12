@@ -1,8 +1,8 @@
 package com.cqs.qicaiyun.modules.service;
 
-import com.cqs.config.BaseConfigurationTestNG;
-import com.cqs.jianshu.modules.entity.Content;
-import com.cqs.mock.ContentMock;
+import com.cqs.configuration.BaseConfigurationTestNG;
+import com.cqs.qicaiyun.mock.ContentMock;
+import com.cqs.qicaiyun.modules.entity.Content;
 import org.testng.annotations.Test;
 
 import javax.annotation.Resource;

@@ -47,7 +47,9 @@ server:
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
   typeAliasesPackage: com.cqs.qicaiyun.modules.entity
-  configLocation: classpath:mybatis-config.xml
+  ###没起作用
+  configLocation: classpath:/mybatis-config.xml
+
   global-config:
     id-type: 3
     field-strategy: 2
@@ -56,8 +58,8 @@ mybatis-plus:
     refresh-mapper: true
   check-config-location: true
 #  configuration:
-#    map-underscore-to-camel-case: true
 #    cache-enabled: false
+#    map-underscore-to-camel-case: true
 
 
 
@@ -68,7 +70,7 @@ logging:
     root: WARN
     org:
       springframework:
-        web: WARE
+        web: WARN
       hibernate: ERROR
     tk:
       mybatis:

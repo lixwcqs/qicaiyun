@@ -1,4 +1,4 @@
-import com.cqs.configuration.BaseTestConfiguration;
+import com.cqs.configuration.BaseConfigurationTestNG;
 import com.cqs.qicaiyun.web.HelloController;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by cqs on 2017/9/9.
  */
-public class ExampleTest extends BaseTestConfiguration {
+public class ExampleTestNG extends BaseConfigurationTestNG {
 
     private MockMvc mvc;
 

@@ -1,9 +1,11 @@
 package com.cqs.qicaiyun.modules.service;
 
-import com.cqs.config.BaseConfigurationTestNG;
-import com.cqs.jianshu.modules.entity.Comment;
-import com.cqs.mock.CommentMock;
-import com.cqs.system.service.IUserService;
+import com.cqs.qicaiyun.Application;
+import com.cqs.qicaiyun.mock.CommentMock;
+import com.cqs.qicaiyun.modules.entity.Comment;
+import com.cqs.qicaiyun.system.service.IUserService;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 import javax.annotation.Resource;
@@ -12,7 +14,8 @@ import java.util.List;
 /**
  * Created by cqs on 2017/8/27.
  */
-public class CommentServiceTest extends BaseConfigurationTestNG {
+@SpringBootTest(classes = Application.class)
+public class CommentServiceTest extends AbstractTestNGSpringContextTests {
 
     @Resource(name = "commentServiceImpl")
     private CommentService service;

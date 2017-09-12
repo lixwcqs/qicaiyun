@@ -1,9 +1,8 @@
 package com.cqs.qicaiyun.modules.service;
 
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.cqs.config.BaseConfigurationTestNG;
-import com.cqs.jianshu.modules.entity.Follower;
-import com.cqs.mock.FollowerMock;
+import com.cqs.configuration.BaseConfigurationTestNG;
+import com.cqs.qicaiyun.mock.FollowerMock;
+import com.cqs.qicaiyun.modules.entity.Follower;
 import org.testng.annotations.Test;
 
 import javax.annotation.Resource;

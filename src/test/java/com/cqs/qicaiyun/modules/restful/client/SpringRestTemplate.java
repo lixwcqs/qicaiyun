@@ -22,7 +22,7 @@ public class SpringRestTemplate {
     @Test
     private  void getUserAsync()
     {
-        final String uri = "http://localhost:6060/jianshu/user/902497813412225025";
+        final String uri = "http://localhost:9090/qicaiyun/user/902497813412225025";
 
 //
         AsyncRestTemplate restTemplate = new AsyncRestTemplate();
