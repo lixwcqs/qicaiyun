@@ -28,11 +28,11 @@ public class FollowerServiceImpl extends ServiceImpl<FollowerMapper, Follower> i
      * @param toUserId   被关注者
      * @return
      */
-    @PostMapping("/f/{fromUserId}/{toUserId}")
+    @PostMapping("/f/{fromUserId}/{toId}")
     public Boolean follow(@NotNull @PathVariable final Long fromUserId, @NotNull @PathVariable final Long toUserId) {
         Follower follower = new Follower();
         follower.setFromUserId(fromUserId);
-        follower.setToUserId(toUserId);
+        follower.setToId(toUserId);
 //        follower.setCTime(LocalDateTime.now());//数据库自动插入
         return insert(follower);
     }
@@ -44,7 +44,7 @@ public class FollowerServiceImpl extends ServiceImpl<FollowerMapper, Follower> i
      * @param toUserId   取消关注对象
      * @return
      */
-    @DeleteMapping("/f/{fromUserId}/{toUserId}")
+    @DeleteMapping("/f/{fromUserId}/{toId}")
     public Boolean unfollow(@NotNull @PathVariable final Long fromUserId, @NotNull @PathVariable final Long toUserId) {
         return delete(new Wrapper<Follower>() {
             @Override

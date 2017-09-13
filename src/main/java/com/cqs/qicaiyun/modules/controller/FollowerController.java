@@ -34,7 +34,7 @@ public class FollowerController {
      * @return
      */
     @ApiOperation(value = "关注",notes = "关注成功返回true,关注失败返回false.",consumes = "application/json",produces = "application/json")
-    @PostMapping("/f/{fromUserId}/{toUserId}")
+    @PostMapping("/f/{fromUserId}/{toId}")
     public Boolean follow(@ApiParam(value = "关注者ID",required = true,readOnly = true) @NotNull @PathVariable final Long fromUserId,
                           @ApiParam(value = "被关注用户ID",required = true,readOnly = true) @PathVariable final Long toUserId) {
         return service.follow(fromUserId,toUserId);
@@ -48,7 +48,7 @@ public class FollowerController {
      * @return
      */
     @ApiOperation(value = "取消关注",notes = "取消成功返回true,取消失败返回false.",consumes = "application/json",produces = "application/json")
-    @DeleteMapping("/f/{fromUserId}/{toUserId}")
+    @DeleteMapping("/f/{fromUserId}/{toId}")
     public Boolean unfollow(@ApiParam(value = "关注者ID") @NotNull @PathVariable final Long fromUserId,
                             @ApiParam(value = "被关注用户ID") @NotNull @PathVariable final Long toUserId) {
         return service.unfollow(fromUserId,toUserId);

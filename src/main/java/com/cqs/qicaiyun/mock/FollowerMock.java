@@ -1,6 +1,7 @@
 package com.cqs.qicaiyun.mock;
 
 import com.cqs.qicaiyun.modules.entity.Follower;
+import com.cqs.qicaiyun.modules.helper.FollowerType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,8 @@ public class FollowerMock {
     public static Follower newFollower(){
         Follower follower = new Follower();
         follower.setFromUserId(902680700132577281L);
-        follower.setToUserId(902497813412225025L);
+        follower.setToId(902497813412225025L);
+        follower.setType(FollowerType.USER);
         return follower;
     }
 

@@ -1,5 +1,6 @@
 package com.cqs.qicaiyun.modules.entity;
 
+import com.cqs.qicaiyun.modules.helper.FollowerType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +28,12 @@ public class Follower implements Serializable {
     /**
      * 被关注用户
      */
-    private Long toUserId;
+    private Long toId;
+
+    /**
+     * 关注类型
+     */
+    private FollowerType type;
 
     /**
      * 回复时间

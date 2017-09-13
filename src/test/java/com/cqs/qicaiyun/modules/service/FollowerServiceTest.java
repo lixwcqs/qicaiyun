@@ -21,7 +21,7 @@ public class FollowerServiceTest extends BaseConfigurationTestNG {
     public void testInsert() throws Exception {
         Follower follower = FollowerMock.newFollower();
         follower.setFromUserId(902680700132577281L);
-        follower.setToUserId(902497813412225025L);
+        follower.setToId(902497813412225025L);
         service.insert(follower);
     }
 
