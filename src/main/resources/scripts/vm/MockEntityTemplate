@@ -1,0 +1,27 @@
+package com.cqs.qicaiyun.mock;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import com.cqs.qicaiyun.modules.entity.${entityClass};
+
+/**
+* Created by cqs on $date
+*/
+public class ${entityClass}Mock {
+
+    private static Random random = new Random();
+
+    public static ${entityClass} new${entityClass}(){
+        ${entityClass} $istName = new ${entityClass}();
+        return $istName;
+    }
+
+    public static List<${entityClass}> new${entityClass}s(){
+        List <${entityClass}> list = new ArrayList<>();
+        for (int i = 0; i < $istNum; i++) {
+            list.add(new${entityClass}());
+        }
+        return list;
+    }
+}

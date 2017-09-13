@@ -30,17 +30,20 @@ public class MVCTemplateTool {
         ve.init();
 
 
-        final String entityClass = "Follower";//类名
+        final String entityClass = "Include";//类名
 //        String[] vms = {"MapperTemplate","ServiceTemplate","ServiceImplTemplate"};
         Map<String,String> map = new HashMap<>();
-        map.put("MapperTemplate",String.format("/src/main/java/com/cqs/jianshu/modules/mapper/%sMapper.java",entityClass));
-        map.put("ServiceTemplate",String.format("/src/main/java/com/cqs/jianshu/modules/service/%sService.java",entityClass));
-        map.put("ServiceImplTemplate",String.format("/src/main/java/com/cqs/jianshu/modules/service/impl/%sServiceImpl.java",entityClass));
+        map.put("MapperTemplate",String.format("/src/main/java/com/cqs/qicaiyun/modules/mapper/%sMapper.java",entityClass));
+        map.put("ServiceTemplate",String.format("/src/main/java/com/cqs/qicaiyun/modules/service/%sService.java",entityClass));
+        map.put("ServiceImplTemplate",String.format("/src/main/java/com/cqs/qicaiyun/modules/service/impl/%sServiceImpl.java",entityClass));
+        map.put("MockEntityTemplate",String.format("/src/main/java/com/cqs/qicaiyun/mock/%sMock.java",entityClass));
+        VelocityContext ctx = new VelocityContext();
+        ctx.put("entityClass", entityClass);
+        ctx.put("istName", firstLetterLower(entityClass));
+        ctx.put("date", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        ctx.put("istNum",5);
         for (String vm : map.keySet()) {
             Template t = ve.getTemplate("scripts/vm/" + vm);
-            VelocityContext ctx = new VelocityContext();
-            ctx.put("entityClass", entityClass);
-            ctx.put("date", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             StringWriter sw = new StringWriter();
             t.merge(ctx, sw);
             generateJavaFile(map.get(vm),sw);

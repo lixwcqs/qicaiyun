@@ -1,0 +1,15 @@
+package com.cqs.qicaiyun.modules.service.impl;
+
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.cqs.qicaiyun.modules.entity.${entityClass};
+import com.cqs.qicaiyun.modules.mapper.${entityClass}Mapper;
+import com.cqs.qicaiyun.modules.service.${entityClass}Service;
+
+import org.springframework.stereotype.Service;
+
+/**
+* Created by cqs on $date.
+*/
+@Service
+public class ${entityClass}ServiceImpl extends ServiceImpl<${entityClass}Mapper, ${entityClass}> implements ${entityClass}Service {
+}

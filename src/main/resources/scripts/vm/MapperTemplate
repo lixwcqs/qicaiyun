@@ -1,0 +1,11 @@
+package com.cqs.qicaiyun.modules.mapper;
+
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.cqs.qicaiyun.modules.entity.$entityClass;
+
+/**
+* Created by cqs on $date.
+*/
+public interface ${entityClass}Mapper extends BaseMapper<${entityClass}> {
+
+}

@@ -1,0 +1,10 @@
+package com.cqs.qicaiyun.modules.service;
+
+import com.baomidou.mybatisplus.service.IService;
+import com.cqs.qicaiyun.modules.entity.${entityClass};
+
+/**
+* Created by cqs on ${date}.
+*/
+public interface ${entityClass}Service extends IService<${entityClass}> {
+}
