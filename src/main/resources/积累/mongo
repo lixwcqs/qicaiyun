@@ -1,0 +1,14 @@
+在cmd中启动
+C:\"Program Files"\MongoDB\Server\3.2\bin\mongod.exe --auth --dbpath F:\programme\mongodb\data
+---不启动授权
+-- C:\"Program Files"\MongoDB\Server\3.2\bin\mongod.exe  --dbpath F:\programme\mongodb\data
+C:/"Program Files"/MongoDB\Server/3.2/bin/mongod.exe  --dbpath F:/programme/mongodb/data
+启动客户端
+C:\"Program Files"\MongoDB\Server\3.2\bin\mongo.exe
+
+
+
+---------------------------------------------------------------------
+
+
+tomcat7-maven-plugin 运行时不支持Groovy
