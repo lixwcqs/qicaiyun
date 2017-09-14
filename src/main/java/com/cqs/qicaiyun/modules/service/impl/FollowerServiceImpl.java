@@ -7,83 +7,77 @@ import com.cqs.qicaiyun.modules.mapper.FollowerMapper;
 import com.cqs.qicaiyun.modules.service.FollowerService;
 import com.sun.istack.internal.NotNull;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
 /**
-* Created by cqs on 2017-09-01T12:49:50.858.
-*/
+ * Created by cqs on 2017-09-01T12:49:50.858.
+ */
 @Service
 public class FollowerServiceImpl extends ServiceImpl<FollowerMapper, Follower> implements FollowerService {
 
 
     /**
-     * 关注作者
+     * 关注
      *
-     * @param fromUserId 关注者
-     * @param toUserId   被关注者
+     * @param follower
      * @return
      */
-    @PostMapping("/f/{fromUserId}/{toId}")
-    public Boolean follow(@NotNull @PathVariable final Long fromUserId, @NotNull @PathVariable final Long toUserId) {
-        Follower follower = new Follower();
-        follower.setFromUserId(fromUserId);
-        follower.setToId(toUserId);
-//        follower.setCTime(LocalDateTime.now());//数据库自动插入
+    @Override
+    public Boolean follow(Follower follower) {
         return insert(follower);
     }
+
 
     /**
      * 取消关注
      *
-     * @param fromUserId 取消关注着
-     * @param toUserId   取消关注对象
+     * @param follower
      * @return
      */
-    @DeleteMapping("/f/{fromUserId}/{toId}")
-    public Boolean unfollow(@NotNull @PathVariable final Long fromUserId, @NotNull @PathVariable final Long toUserId) {
-        return delete(new Wrapper<Follower>() {
-            @Override
-            public String getSqlSegment() {
-                return String.format("WHERE from_user_id = %d AND to_user_id = %d ", fromUserId, toUserId);
-            }
-        });
+    @Override
+    public Boolean unfollow(Follower follower) {
+        return baseMapper.unfollow(follower);
     }
 
     /**
      * toUserId关注了哪些用户
-     * @param fromUserId
+     *
+     * @param fromId
      * @return
      */
-    @GetMapping("/fs/{userId}")
-    public List<Follower> followList(@NotNull @PathVariable("userId") final Long fromUserId){
+    public List<Follower> followList(@NotNull final Long fromId) {
         return selectList(new Wrapper<Follower>() {
             @Override
             public String getSqlSegment() {
-                return "WHERE from_user_id = " + fromUserId;
+                return "WHERE from_user_id = " + fromId;
             }
         });
     }
 
 
-
-
     /**
      * 哪些用户关注了toUserId
-     * @param toUserId
+     *
+     * @param toId
      * @return
      */
-    @GetMapping("/fds/{userId}")
-    public List<Follower> followedList(@NotNull @PathVariable("userId") final Long toUserId){
+    public List<Follower> followedList(@NotNull final Long toId) {
         return selectList(new Wrapper<Follower>() {
             @Override
             public String getSqlSegment() {
-                return "WHERE to_user_id = " + toUserId;
+                return "WHERE to_id = " + toId;
             }
         });
+    }
+
+
+    public Boolean unfollow(@NotNull  final Long fromUserId, @NotNull  final Long toId) {
+        throw new RuntimeException("废弃方法");
+    }
+
+    public Boolean follow(@NotNull @PathVariable final Long fromUserId, @NotNull @PathVariable final Long toId) {
+        throw new RuntimeException("废弃方法");
     }
 }

@@ -9,8 +9,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 /**
  * Created by cqs on 2017/9/9.
  */
-//@RunWith(SpringTest.class)
 //@SpringBootTest(classes = MockServletContext.class)
+//@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {MockServletContext.class, Application.class})
 @WebAppConfiguration
 public class BaseConfigurationTestNG extends AbstractTestNGSpringContextTests {}

@@ -2,6 +2,7 @@ package com.cqs.qicaiyun.mock;
 
 import com.cqs.qicaiyun.modules.entity.Follower;
 import com.cqs.qicaiyun.modules.helper.FollowerType;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Random;
 /**
 * Created by cqs on 2017-08-31T00:39:04.500
 */
+@Log4j2
 public class FollowerMock {
 
     private static Random random = new Random();
@@ -19,6 +21,7 @@ public class FollowerMock {
         follower.setFromUserId(902680700132577281L);
         follower.setToId(902497813412225025L);
         follower.setType(FollowerType.USER);
+        log.debug(FollowerType.USER);
         return follower;
     }
 

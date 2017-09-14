@@ -39,6 +39,7 @@
         <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="java.math.RoundingMode"/>
         <!---->
         <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="com.cqs.qicaiyun.system.entity.SexType"/>
+        <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="com.cqs.qicaiyun.modules.helper.FollowerType"/>
     </typeHandlers>
 
 </configuration>
