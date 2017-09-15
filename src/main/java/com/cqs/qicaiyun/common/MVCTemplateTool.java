@@ -43,7 +43,7 @@ public class MVCTemplateTool {
         ctx.put("date", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         ctx.put("istNum",5);
         for (String vm : map.keySet()) {
-            Template t = ve.getTemplate("scripts/vm/" + vm);
+            Template t = ve.getTemplate("template/vm/" + vm);
             StringWriter sw = new StringWriter();
             t.merge(ctx, sw);
             generateJavaFile(map.get(vm),sw);
