@@ -32,11 +32,12 @@ public class ArticleServiceTest extends BaseConfigurationTestNG {
         contentService.insert(content);
         Article article = ArticleMock.mockArticle(content.getId());
         service.insert(article);
+        System.out.println(article);
     }
 
     @Test
     public void selectById() throws Exception {
-        Article article = service.selectById(901074896795279362L);
+        Article article = service.selectById(1);
         assertNotNull(article);
     }
 

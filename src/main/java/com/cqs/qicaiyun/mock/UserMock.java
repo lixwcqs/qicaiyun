@@ -34,7 +34,7 @@ public class UserMock {
 
     public static List<User> newUsers() {
         List<User> list = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
             list.add(newUser());
         }
         return list;

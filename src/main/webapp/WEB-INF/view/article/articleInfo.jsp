@@ -1,21 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: cqs
-  Date: 2017/8/6
-  Time: 21:59
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ include file="/resources/jsp/res.jsp" %>
 <html>
 <head>
     <title>文章查看</title>
+
+    <script src="${ctx}/resources/scripts/jianshu/article.js" type="text/javascript"></script>
     <script type="application/javascript">
         $(function () {
             console.log('---------------')
             var articleId = ${id};
-             articleId = '901074896795279362';
-             console.log(articleId)
             var _url = basePath + "/article/find/" + articleId;
             console.log("_URL:"+_url);
             $.get(_url, function (data) {
@@ -33,9 +26,6 @@
     </script>
 </head>
 <body>
-<form>
-
-</form>
 <div>
     标题：<span class="label label-primary" id="title"></span>
 </div>
@@ -46,22 +36,19 @@
     正文：<span id="content"></span>
 </div>
 
-
+${id}
 <%--发表评论--%>
-<form role="form">
+<form role="form" id="comform">
+    <input type="text" value="${id}" id="articleId" name="articleId">
+    <input type="text" value="2" name="userId">
     <div class="form-group">
-        <%--评论人--%>
-        <input type="text" class="form-control" value="901107958614630401">
+        <label for="content">评论</label>
+        <textarea class="form-control" name="content" id="content" rows="3"></textarea>
     </div>
-    <div class="form-group">
-        <label for="comment">评论</label>
-        <textarea class="form-control" id="comment" rows="3"></textarea>
-    </div>
-    <input class="btn btn-default" value="Submit" onclick="comment()">
+    <input class="btn btn-default" value="Submit" onclick="commentArticle()">
 </form>
 
 
 <%--展示评论--%>
-
 </body>
 </html>

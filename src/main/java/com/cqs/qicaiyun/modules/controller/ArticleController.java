@@ -5,13 +5,13 @@ import com.cqs.qicaiyun.modules.entity.Content;
 import com.cqs.qicaiyun.modules.service.ArticleService;
 import com.cqs.qicaiyun.modules.service.ContentService;
 import com.sun.istack.internal.NotNull;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,9 +22,7 @@ import java.util.List;
 @Controller
 @Log4j2
 public class ArticleController {
-
-
-    private final static String VIEW = "redirect:/article/list/p";
+    private final static String VIEW = "redirect:/fd/article/list/p";
 
     @Resource(name = "articleServiceImpl")
     private ArticleService service;
@@ -48,7 +46,7 @@ public class ArticleController {
         article.setUTime(now);
         article.setUTime(now);
         service.insert(article);
-        return VIEW;
+        return "redirect:/fd/article/p/"+article.getId();
     }
 
 
@@ -90,35 +88,15 @@ public class ArticleController {
         return list;
     }
 
-    /**
-     * 跳转到文章详情页面
-     *
-     * @return
-     */
-    @GetMapping("/p/{id}")
-    public String articleInfoJsp(@PathVariable("id") String id, HttpServletRequest request) {
-        request.setAttribute("id", id);
-        return "/article/articleInfo";
+    @ApiOperation("访问用户页面")
+    @GetMapping("/user/u")
+    public String infoJsp() {
+        return "/user/userInfo";
     }
 
-    /**
-     * 跳转到文章发布页面
-     *
-     * @return
-     */
-    @GetMapping("/write")
-    public String addPageJsp() {
-        return "/article/article";
-    }
-
-
-    /**
-     * 跳转到文章列表页面
-     *
-     * @return
-     */
-    @GetMapping("/list/p")
-    public String listJsp() {
-        return "/article/list";
+    @ApiOperation("访问注册页面")
+    @GetMapping("/user/r")
+    public String registerJsp() {
+        return "/user/register";
     }
 }

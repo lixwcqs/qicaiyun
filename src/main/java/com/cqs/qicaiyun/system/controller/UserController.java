@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by cqs on 2017/8/25.
@@ -60,17 +59,6 @@ public class UserController {
         return service.deleteById(userId);
     }
 
-    @ApiOperation("访问用户页面")
-    @GetMapping("/u")
-    public String infoJsp() {
-        return "/user/userInfo";
-    }
-
-    @ApiOperation("访问注册页面")
-    @GetMapping("/r")
-    public String registerJsp() {
-        return "/user/register";
-    }
 
 
     @GetMapping("/check/{account}")
@@ -84,22 +72,56 @@ public class UserController {
     }
 
 
-    @PostMapping("/reg")
-    @ResponseBody
-    @ApiOperation(value = "本地注册", notes = "待实现：统一在用户管理中心注册")
-//    @ApiImplicitParams({@ApiImplicitParam(name = "user", paramType = "body", value = "用户实体", required = true)})
-    public Result<User> register(@RequestBody User user) {
-        boolean success = service.insert(user);
-        Result<User> result = Result.newInstance();
-        result.success(success);
-        result.data(user);
-        return Result.ok("注册成功", user);
-    }
+
 
     @ApiOperation("访问登录页面")
     @GetMapping("/lg")
-    public String loginJsp(HttpServletResponse response) {
+    public String loginJsp() {
         return "/user/login";
+    }
+
+    @PostMapping("/login")
+    @ApiOperation(value = "登录提交")
+    @ApiImplicitParams({@ApiImplicitParam(name = "account", value = "登录账号", dataTypeClass = String.class),
+            @ApiImplicitParam(name = "password", value = "密码", dataTypeClass = String.class)})
+    public String login(@PathVariable String account, @PathVariable String password) {
+        EntityWrapper<User> wrapper = new EntityWrapper<>();
+        //登录的话
+        User user = new User();
+        user.setAccount(account);
+        user.setPassword(password);
+        wrapper.setEntity(user);
+        wrapper.eq("account",account);
+        User u = service.selectOne(wrapper);
+        if (u != null) {
+
+        }
+        return "redirect:/";
+    }
+
+
+    @ApiOperation("访问注册页面")
+    @GetMapping("r")
+    public String register(){
+        return "/user/register";
+    }
+
+
+    @PostMapping("/reg")
+    @ResponseBody
+    @ApiOperation(value = "本地注册", notes = "待实现：统一在用户管理中心注册")
+    public Result<User> register(@RequestBody User user) {
+        boolean success = false;
+        log.debug(Thread.currentThread().getName());
+        try {
+            success = service.insert(user);
+        } catch (Exception e) {
+            return Result.fail("注册失败",user);
+        }
+        Result<User> result = Result.newInstance();
+        result.success(success);
+        result.data(user);
+        return result;
     }
 
 
@@ -112,14 +134,6 @@ public class UserController {
         throw new RuntimeException("还没有实现");
     }
 
-    @PostMapping("/lg/{email}/{password}")
-    @ResponseBody
-    @ApiOperation(value = "登录提交", hidden = true)
-    @ApiImplicitParams({@ApiImplicitParam(name = "email", value = "登录账号", dataTypeClass = String.class),
-            @ApiImplicitParam(name = "password", value = "密码", dataTypeClass = String.class)})
-    public Result login(@PathVariable String email, @PathVariable String password) {
-        throw new RuntimeException("没有实现");
-    }
 
 
 

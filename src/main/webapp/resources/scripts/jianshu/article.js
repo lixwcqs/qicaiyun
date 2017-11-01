@@ -10,12 +10,14 @@ function _init() {
         datatype: "json",
         caption: "文章列表",
         colModel: [
-            {label: '主键', name: 'id', width: 500, hidden: false,
+            {
+                label: '主键', name: 'id', width: 500, hidden: false,
                 formatter: function (value, options, row) {
-                console.log(typeof value)
-                console.log('主键：' + value)
-                return value
-            }},
+                    console.log(typeof value)
+                    console.log('主键：' + value)
+                    return value
+                }
+            },
             {label: '标题', name: 'title', width: 300},
             {
                 label: '内容【摘要】', name: 'content', width: 300,
@@ -30,7 +32,7 @@ function _init() {
             {label: '作者', name: 'author', width: 150},
             {
                 label: '发布日期',
-                name: 'cTime',
+                name: 'ctime',
                 width: 200,
 
             },
@@ -91,7 +93,7 @@ function _init() {
 
 
 //关注
-function follow(targetId,followerId){
+function follow(targetId, followerId) {
 
 }
 
@@ -106,15 +108,26 @@ function display() {
 }
 
 function createArticle() {
-    window.location.href = basePath + "/article/write";
+    window.location.href = basePath + "/fd/article/write";
 }
 
 function displayArticle(id) {
     console.log(id);
-    window.location.href = basePath + '/article/p?id=' + id;
+    window.location.href = basePath + '/fd/article/p/' + id;
 }
 
-function comment(){
+function commentArticle() {
+    //参数
+    // var aid = $('#articleId').val();
+    $.ajax({
+        url:basePath + "/comment/a/",
+        data:$('#comform').serializeJSON(),
+        method:'post',
+        contentType:"application/json",
+        success:function(data){
+            console.log(data)
+        }
 
+    })
 }
 

@@ -206,6 +206,12 @@ public class FTPUtils {
                 client.disconnect();
                 return null;
             }
+            /**
+             * site umask 022：
+              目录为777-022=755
+              文件为666-022=644
+             */
+            client.sendCommand("site umask 022");// 其他用户具有权限访问上传的文件
             logger.info("FTP登陆成功");
         } catch (IOException e) {
             e.printStackTrace();

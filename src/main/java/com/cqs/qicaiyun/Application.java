@@ -2,18 +2,23 @@ package com.cqs.qicaiyun;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 /**
  * 置于项目根目录下
- *
  */
 @SpringBootApplication
-//@MapperScan(basePackages = "com.cqs.qicaiyun.modules.mapper")
-public class Application {
+public class Application extends SpringBootServletInitializer {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Application.class);
+    }
 
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+
+    }
 
 }

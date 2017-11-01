@@ -1,6 +1,7 @@
-package com.cqs.qicaiyun.conf.mybatis;
+package com.cqs.qicaiyun.conf;
 
 import com.baomidou.mybatisplus.entity.GlobalConfiguration;
+import com.baomidou.mybatisplus.enums.FieldStrategy;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
 import com.cqs.qicaiyun.common.MyMetaObjectHandler;
@@ -73,8 +74,10 @@ public class MyBatisConfig {
     //设置全局配置
     private GlobalConfiguration getGlobalConfiguration() {
         GlobalConfiguration gc = new GlobalConfiguration();
-        gc.setIdType(IdType.ID_WORKER.ordinal());
+        gc.setIdType(IdType.AUTO.ordinal());
         gc.setDbColumnUnderline(true);
+        gc.setRefresh(true);
+        gc.setFieldStrategy(FieldStrategy.NOT_EMPTY.getKey());
         gc.setMetaObjectHandler( new MyMetaObjectHandler());
         return gc;
     }

@@ -21,7 +21,7 @@
             var editor = new Simditor({
                 textarea: $('#editor'),
                 upload : {
-                    url : '${ctx}/image/upload.do', //文件上传的接口地址
+                    url : '${ctx}/image/upload', //文件上传的接口地址
                     params: null, //键值对,指定文件上传接口的额外参数,上传的时候随文件一起提交
                     fileKey: 'fileDataFileName', //服务器端获取文件数据的参数名
                     connectionCount: 2,

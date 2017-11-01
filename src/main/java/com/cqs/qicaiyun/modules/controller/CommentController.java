@@ -2,9 +2,12 @@ package com.cqs.qicaiyun.modules.controller;
 
 import com.cqs.qicaiyun.modules.entity.Comment;
 import com.cqs.qicaiyun.modules.service.CommentService;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -31,24 +34,17 @@ public class CommentController {
     /**
      * 保存评论
      *
-     * @param articleId 文章ID
      * @return
      */
-    @PostMapping("/a/{articleId}")
-    public Boolean insertComments(@PathVariable("articleId") Long articleId) {
-        Comment comment = new Comment();
+    @PostMapping("/a")
+    @ApiOperation("保存评论")
+    public Boolean insertComments(@RequestBody Comment comment) {
+        LocalDateTime now = LocalDateTime.now();
+        Assert.notNull(comment.getArticleId(),"文章ID不能为空");
+        comment.setCTime(now);
+        comment.setUp(0);
+        comment.setDown(0);
         return service.insert(comment);
-    }
-
-    /**
-     * 更新评论
-     *
-     * @param articleId 文章ID
-     * @return
-     */
-    @PatchMapping("/a/{articleId}")
-    public Boolean updateComments(@PathVariable("articleId") Long articleId) {
-        throw new RuntimeException("not Implementation ");
     }
 
 

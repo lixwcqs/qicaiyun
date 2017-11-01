@@ -32,7 +32,7 @@ public class SpringRestTemplate {
             User user = entity.getBody();
             System.out.println(user);
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            throw new RuntimeException("查询用户失败");
+            throw new RuntimeException("查询用户失败",e);
         }
 
 
@@ -44,6 +44,7 @@ public class SpringRestTemplate {
     {
         final String uri = "http://localhost:6060/jianshu/user/902497813412225025";
         ResponseEntity<User> forEntity = restTemplate.getForEntity(uri, User.class);
+
         User user = forEntity.getBody();
         System.out.println(user);
 

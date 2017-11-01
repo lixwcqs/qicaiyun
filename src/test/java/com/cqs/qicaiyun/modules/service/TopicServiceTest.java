@@ -1,6 +1,6 @@
 package com.cqs.qicaiyun.modules.service;
 
-import com.cqs.configuration.BaseConfigurationTestNG;
+import com.cqs.configuration.TestBaseServiceConf;
 import com.cqs.qicaiyun.mock.TopicMock;
 import com.cqs.qicaiyun.modules.entity.Topic;
 import lombok.extern.log4j.Log4j2;
@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * Created by cqs on 2017/9/13.
  */
 @Log4j2
-public class TopicServiceTest extends BaseConfigurationTestNG {
+public class TopicServiceTest extends TestBaseServiceConf {
 
     @Resource(name = "topicServiceImpl")
     private TopicService service;

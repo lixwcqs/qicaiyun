@@ -6,7 +6,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/jianshu
+    url: jdbc:mysql://localhost:3306/qicaiyun
     username: root
     password: 1111
   jackson:
@@ -14,10 +14,22 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
   session:
     store-type: none
+  mvc:
+      view:
+        prefix: /WEB-INF/view/
+        suffix: .jsp
+  devtools:
+      restart:
+        additional-exclude: scripts/**,template/**,resources/**,WEB-INF/**
+
 
 server:
   port: 9090
   context-path: /qicaiyun
+
+
+
+
 
 
 
@@ -49,18 +61,22 @@ mybatis-plus:
   typeAliasesPackage: com.cqs.qicaiyun.modules.entity
   ###没起作用
   configLocation: classpath:/mybatis-config.xml
-
-  global-config:
-    id-type: 3
-    field-strategy: 2
-    auto-set-db-type: true
-    db-column-underline: true
-    refresh-mapper: true
-  check-config-location: true
-#  configuration:
-#    cache-enabled: false
-#    map-underscore-to-camel-case: true
-
+#
+#  global-config:
+##    值	描述
+##    IdType.AUTO	数据库ID自增
+##    IdType.INPUT	用户输入ID
+##    IdType.ID_WORKER	全局唯一ID，内容为空自动填充（默认配置）
+##    IdType.UUID	全局唯一ID，内容为空自动填充
+#    id-type: 0
+#    field-strategy: 2
+#    db-column-underline: true
+#    refresh-mapper: true
+#  check-config-location: true
+##  configuration:
+##    cache-enabled: false
+##    map-underscore-to-camel-case: true
+#
 
 
 #####日志
