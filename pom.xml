@@ -75,6 +75,8 @@
             </exclusions>
         </dependency>
 
+
+
         <!--<dependency>-->
             <!--<groupId>org.springframework.boot</groupId>-->
             <!--<artifactId>spring-boot-starter-data-elasticsearch</artifactId>-->
@@ -97,6 +99,18 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- Provided -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <!--<scope>provided</scope>-->
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-jetty</artifactId>-->
+        <!--</dependency>-->
+
         <!--Add-on module to support JSR-310 (Java 8 Date & Time API) data types -->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -110,17 +124,6 @@
             <artifactId>jstl</artifactId>
         </dependency>
 
-        <!-- Provided -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <!--<scope>provided</scope>-->
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-            <!--<scope>provided</scope>-->
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -131,6 +134,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.caucho</groupId>
+            <artifactId>hessian</artifactId>
+            <version>4.0.51</version>
+        </dependency>
+
 
         <!--Mybatis Plus-->
         <dependency>
@@ -144,6 +154,12 @@
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
             <version>RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mybatis</artifactId>
+                    <groupId>org.mybatis</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
 
@@ -270,6 +286,12 @@
             <version>0.9.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+
 
         <!--开发者工具-->
         <dependency>
@@ -328,7 +350,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <fork>true</fork>
+                    <fork>false</fork>
                 </configuration>
             </plugin>
         </plugins>

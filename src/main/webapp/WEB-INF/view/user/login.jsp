@@ -9,19 +9,19 @@
 
 <div class="container">
 
-    <form class="form-signin">
+    <form class="form-signin" method="post" action="${ctx}/login">
         <h2 class="form-signin-heading">请登录</h2>
         <label for="account" class="sr-only">账号</label>
-        <input type="text" id="account" name="account" class="form-control" placeholder="账号" value="11" required autofocus>
+        <input type="text" id="account" name="account" class="form-control" placeholder="账号" value="li" required autofocus>
         <div> </div> <br/>
         <label for="inputPassword" class="sr-only">密码</label>
-        <input type="password" id="inputPassword"  class="form-control" placeholder="密码" value="222" required>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="密码" value="1" required>
         <div class="checkbox">
             <label>
                 <input type="checkbox" value="remember-me"> 记住
             </label>
         </div>
-        <button class="btn btn-lg btn-primary " onclick="_login()">登录</button>
+        <button class="btn btn-lg btn-primary " type="submit" >登录</button>
     </form>
 
 </div> <!-- /container -->

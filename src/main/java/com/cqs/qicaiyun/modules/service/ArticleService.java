@@ -8,4 +8,7 @@ import com.cqs.qicaiyun.modules.entity.Article;
  */
 public interface ArticleService extends IService<Article> {
 
+//   Page<Article> selectPage(Page<Article> page, Article example);
+
+   boolean publish(Article article);
 }

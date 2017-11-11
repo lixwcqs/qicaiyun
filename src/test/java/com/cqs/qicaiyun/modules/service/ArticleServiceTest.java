@@ -1,10 +1,10 @@
 package com.cqs.qicaiyun.modules.service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.cqs.configuration.BaseConfigurationTestNG;
 import com.cqs.qicaiyun.mock.ArticleMock;
-import com.cqs.qicaiyun.mock.ContentMock;
 import com.cqs.qicaiyun.modules.entity.Article;
-import com.cqs.qicaiyun.modules.entity.Content;
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
 
@@ -28,11 +28,12 @@ public class ArticleServiceTest extends BaseConfigurationTestNG {
 
     @Test
     public void testInsert() throws Exception {
-        Content content = ContentMock.mockContent();
-        contentService.insert(content);
-        Article article = ArticleMock.mockArticle(content.getId());
-        service.insert(article);
-        System.out.println(article);
+        for (int i = 0; i < 1; i++) {
+            Article article = ArticleMock.mockArticle();
+            service.publish(article);
+            System.out.println(article);
+        }
+
     }
 
     @Test
@@ -47,6 +48,15 @@ public class ArticleServiceTest extends BaseConfigurationTestNG {
         List<Article> list = service.selectList(null);
         assertEquals(count,list.size());
         list.stream().forEach(System.out::println);
+    }
 
+
+    @Test
+    public void testSelectByExample() throws Exception {
+        Page<Article> page =new Page<>();
+        EntityWrapper<Article> wrapper = new EntityWrapper<>();
+//        wrapper.;
+        Page<Article> articlePage = service.selectPage(page, wrapper);
+        System.out.println(articlePage);
     }
 }

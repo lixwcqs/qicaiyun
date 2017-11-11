@@ -1,9 +1,7 @@
 package com.cqs.qicaiyun.modules.controller;
 
 import com.cqs.qicaiyun.modules.entity.Article;
-import com.cqs.qicaiyun.modules.entity.Content;
 import com.cqs.qicaiyun.modules.service.ArticleService;
-import com.cqs.qicaiyun.modules.service.ContentService;
 import com.sun.istack.internal.NotNull;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
@@ -27,26 +25,12 @@ public class ArticleController {
     @Resource(name = "articleServiceImpl")
     private ArticleService service;
 
-    @Resource(name = "contentServiceImpl")
-    private ContentService contentService;
 
     //发布文章
     @PostMapping("/publish")
     public String publish(@NotNull Article article) {
-
-        Content content = new Content();
-        content.setContent(article.getContent());
-        boolean insertOK = contentService.insert(content);
-        if (!insertOK) {
-            log.error("发布文章失败：写入文本内容异常");
-            throw new RuntimeException("发布文章失败");
-        }
-        article.setContentId(content.getId());
-        LocalDateTime now = LocalDateTime.now();
-        article.setUTime(now);
-        article.setUTime(now);
-        service.insert(article);
-        return "redirect:/fd/article/p/"+article.getId();
+        service.publish(article);
+        return "redirect:/fd/article/p/" + article.getId();
     }
 
 
@@ -76,8 +60,6 @@ public class ArticleController {
     public Article findById(@PathVariable("id") long id) {
         Article article = service.selectById(id);
         //查询出内容
-        Content content = contentService.selectById(article.getContentId());
-        article.setContent(content.getContent());
         return article;
     }
 

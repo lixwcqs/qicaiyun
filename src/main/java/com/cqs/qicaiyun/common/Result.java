@@ -2,8 +2,12 @@ package com.cqs.qicaiyun.common;
 
 import lombok.Getter;
 
+import java.io.Serializable;
+
 @Getter
-public final class Result<T> {
+public final class Result<T> implements Serializable {
+    private final static long serialVersionUID= 1L;
+
     private int code;        // 状态码，一般是当 success 为 true 或者 false 时不足够表达时可使用
     private boolean success; // 成功时为 true，失败时为 false
     private String message;  // 成功或则失败时的描述信息

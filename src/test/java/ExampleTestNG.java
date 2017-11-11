@@ -1,5 +1,4 @@
 import com.cqs.configuration.BaseConfigurationTestNG;
-import com.cqs.qicaiyun.web.HelloController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,7 +25,6 @@ public class ExampleTestNG extends BaseConfigurationTestNG {
     private WebApplicationContext wac;
     @BeforeClass
     public void setUp() throws Exception {
-        mvc = MockMvcBuilders.standaloneSetup(new HelloController()).build();
         mvc2 = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
 

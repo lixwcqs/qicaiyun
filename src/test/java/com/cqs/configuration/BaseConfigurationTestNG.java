@@ -1,6 +1,6 @@
 package com.cqs.configuration;
 
-import com.cqs.qicaiyun.Application;
+import com.cqs.qicaiyun.conf.Application;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;

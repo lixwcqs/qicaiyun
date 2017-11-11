@@ -35,11 +35,29 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
 
+
     <typeHandlers>
         <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="java.math.RoundingMode"/>
         <!---->
         <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="com.cqs.qicaiyun.system.entity.SexType"/>
         <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="com.cqs.qicaiyun.modules.helper.FollowerType"/>
     </typeHandlers>
+
+    <plugins>
+
+        <!-- SQL 执行性能分析，开发环境使用，线上不推荐。 maxTime 指的是 sql 最大执行时长 -->
+        <!--<plugin interceptor="com.baomidou.mybatisplus.plugins.PerformanceInterceptor">-->
+            <!--&lt;!&ndash;单位毫秒&ndash;&gt;-->
+            <!--<property name="maxTime" value="1500" />-->
+            <!--&lt;!&ndash;SQL是否格式化 默认false&ndash;&gt;-->
+            <!--<property name="format" value="true" />-->
+        <!--</plugin>-->
+
+        <plugin interceptor="com.baomidou.mybatisplus.plugins.PaginationInterceptor">
+
+        </plugin>
+    </plugins>
+
+
 
 </configuration>

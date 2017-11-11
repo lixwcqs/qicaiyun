@@ -59,9 +59,11 @@ public class MyBatisConfig {
         //下边两句仅仅用于*.xml文件，如果整个持久层操作不需要使用到xml文件的话（只用注解就可以搞定），则不加
         fb.setTypeAliasesPackage(env.getProperty("mybatis-plus.typeAliasesPackage"));//指定基包
         fb.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(env.getProperty("mybatis-plus.mapper-locations")));//指定xml文件位置
+        fb.setConfigLocation(new PathMatchingResourcePatternResolver().getResource(env.getProperty("mybatis-plus.config-location")));//指定xml文件位置
         fb.setGlobalConfig(getGlobalConfiguration());
         SqlSessionFactory sqlSessionFactory =  fb.getObject();
         //设置枚举类型--处理器
+//        sqlSessionFactory.getConfiguration().getInterceptors().add(new PerformanceInterceptor());
         TypeHandlerRegistry registry = sqlSessionFactory.getConfiguration().getTypeHandlerRegistry();
         registry.register(FollowerType.class,new EnumOrdinalTypeHandler<>(FollowerType.class));
         registry.register(SexType.class,new EnumOrdinalTypeHandler<>(SexType.class));

@@ -1,6 +1,8 @@
 package com.cqs.qicaiyun.modules.service;
 
-import com.cqs.qicaiyun.Application;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.cqs.qicaiyun.conf.Application;
 import com.cqs.qicaiyun.mock.CommentMock;
 import com.cqs.qicaiyun.modules.entity.Comment;
 import com.cqs.qicaiyun.system.service.IUserService;
@@ -26,10 +28,12 @@ public class CommentServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testInsert() throws Exception {
-        Comment comment  = CommentMock.mockComment();
-        comment.setUserId(userService.selectList(null).get(0).getId());
-        comment.setArticleId(articleService.selectList(null).get(0).getId());
-        service.insert(comment);
+        for (int i = 0; i < 10; i++) {
+            Comment comment  = CommentMock.mockComment();
+            comment.setUserId(userService.selectList(null).get(0).getId());
+            comment.setArticleId(articleService.selectList(null).get(0).getId());
+            service.insert(comment);
+        }
     }
 
     @Test
@@ -43,5 +47,17 @@ public class CommentServiceTest extends AbstractTestNGSpringContextTests {
         List<Comment> comments = service.selectList(null);
         if (comments.size() > 0)
         System.out.println(comments.get(0));
+    }
+
+
+    @Test
+    public void testSelectPage() throws Exception {
+        Page<Comment> page = new Page<>(1,5);
+        EntityWrapper<Comment> wrapper = new EntityWrapper<>();
+        wrapper.eq("article_id",1);
+        wrapper.orderBy("down",false);
+        service.selectPage(page, wrapper);
+        page.getRecords().forEach(System.out::println);
+        System.out.println(page);
     }
 }

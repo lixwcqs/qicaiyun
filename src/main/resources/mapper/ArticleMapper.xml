@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqs.qicaiyun.modules.mapper.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.cqs.qicaiyun.modules.entity.Article">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="content_id" jdbcType="BIGINT" property="contentId" />
+    <result column="up" jdbcType="INTEGER" property="up" />
+    <result column="reading" jdbcType="INTEGER" property="reading" />
+    <result column="category" jdbcType="TINYINT" property="category" />
+    <result column="c_time" jdbcType="TIMESTAMP" property="cTime" />
+    <result column="u_time" jdbcType="TIMESTAMP" property="uTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, title, author, content_id, up, reading, category, c_time, u_time
+  </sql>
+  <select id="selectByExample" parameterType="com.cqs.qicaiyun.modules.entity.ArticleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from article
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from article
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cqs.qicaiyun.modules.entity.ArticleExample">
+    delete from article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cqs.qicaiyun.modules.entity.Article">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into article (title, author, content_id, 
+      up, reading, category, 
+      c_time, u_time)
+    values (#{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{contentId,jdbcType=BIGINT}, 
+      #{up,jdbcType=INTEGER}, #{reading,jdbcType=INTEGER}, #{category,jdbcType=TINYINT}, 
+      #{cTime,jdbcType=TIMESTAMP}, #{uTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqs.qicaiyun.modules.entity.Article">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="contentId != null">
+        content_id,
+      </if>
+      <if test="up != null">
+        up,
+      </if>
+      <if test="reading != null">
+        reading,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="cTime != null">
+        c_time,
+      </if>
+      <if test="uTime != null">
+        u_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="contentId != null">
+        #{contentId,jdbcType=BIGINT},
+      </if>
+      <if test="up != null">
+        #{up,jdbcType=INTEGER},
+      </if>
+      <if test="reading != null">
+        #{reading,jdbcType=INTEGER},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=TINYINT},
+      </if>
+      <if test="cTime != null">
+        #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uTime != null">
+        #{uTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cqs.qicaiyun.modules.entity.ArticleExample" resultType="java.lang.Long">
+    select count(*) from article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update article
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contentId != null">
+        content_id = #{record.contentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.up != null">
+        up = #{record.up,jdbcType=INTEGER},
+      </if>
+      <if test="record.reading != null">
+        reading = #{record.reading,jdbcType=INTEGER},
+      </if>
+      <if test="record.category != null">
+        category = #{record.category,jdbcType=TINYINT},
+      </if>
+      <if test="record.cTime != null">
+        c_time = #{record.cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.uTime != null">
+        u_time = #{record.uTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update article
+    set id = #{record.id,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      content_id = #{record.contentId,jdbcType=BIGINT},
+      up = #{record.up,jdbcType=INTEGER},
+      reading = #{record.reading,jdbcType=INTEGER},
+      category = #{record.category,jdbcType=TINYINT},
+      c_time = #{record.cTime,jdbcType=TIMESTAMP},
+      u_time = #{record.uTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqs.qicaiyun.modules.entity.Article">
+    update article
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="contentId != null">
+        content_id = #{contentId,jdbcType=BIGINT},
+      </if>
+      <if test="up != null">
+        up = #{up,jdbcType=INTEGER},
+      </if>
+      <if test="reading != null">
+        reading = #{reading,jdbcType=INTEGER},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=TINYINT},
+      </if>
+      <if test="cTime != null">
+        c_time = #{cTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uTime != null">
+        u_time = #{uTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqs.qicaiyun.modules.entity.Article">
+    update article
+    set title = #{title,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      content_id = #{contentId,jdbcType=BIGINT},
+      up = #{up,jdbcType=INTEGER},
+      reading = #{reading,jdbcType=INTEGER},
+      category = #{category,jdbcType=TINYINT},
+      c_time = #{cTime,jdbcType=TIMESTAMP},
+      u_time = #{uTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

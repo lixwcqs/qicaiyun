@@ -1,6 +1,8 @@
 package com.cqs.qicaiyun.modules.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.cqs.qicaiyun.modules.entity.Comment;
 import com.cqs.qicaiyun.modules.entity.Reply;
@@ -20,10 +22,15 @@ import java.util.stream.Collectors;
  */
 @Service
 @Log4j2
-public class CommentServiceImpl extends ServiceImpl<CommentMapper,Comment> implements CommentService {
+public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> implements CommentService {
 
     @Resource(name = "replyServiceImpl")
     private ReplyService replyService;
+
+
+    @Resource
+    private CommentMapper commentMapper;
+
 
     //根据文章ID查询评论列表
     @Override
@@ -52,6 +59,14 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper,Comment> imple
             comment.setReplies(replyMap.get(comment.getId()));
         });
         return comments;
+    }
+
+    @Override
+    public Page<Comment> selectPage(Page<Comment> page, EntityWrapper<Comment> wrapper) {
+        //wrapper.eq("article_id", articleId);
+        List<Comment> comments = commentMapper.selectPage(page, wrapper);
+        page.setRecords(comments);
+        return page;
     }
 
 }

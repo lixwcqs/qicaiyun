@@ -1,4 +1,4 @@
-package com.cqs.qicaiyun;
+package com.cqs.qicaiyun.conf;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

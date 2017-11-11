@@ -60,7 +60,6 @@ public class UserController {
     }
 
 
-
     @GetMapping("/check/{account}")
     @ResponseBody
     @ApiOperation(value = "(用户中心)账号是否存在", notes = "success：表示账号存在，反之不存在")
@@ -71,41 +70,11 @@ public class UserController {
         return num > 0 ? Result.ok() : Result.fail("账号不存在");
     }
 
-
-
-
-    @ApiOperation("访问登录页面")
-    @GetMapping("/lg")
-    public String loginJsp() {
-        return "/user/login";
-    }
-
-    @PostMapping("/login")
-    @ApiOperation(value = "登录提交")
-    @ApiImplicitParams({@ApiImplicitParam(name = "account", value = "登录账号", dataTypeClass = String.class),
-            @ApiImplicitParam(name = "password", value = "密码", dataTypeClass = String.class)})
-    public String login(@PathVariable String account, @PathVariable String password) {
-        EntityWrapper<User> wrapper = new EntityWrapper<>();
-        //登录的话
-        User user = new User();
-        user.setAccount(account);
-        user.setPassword(password);
-        wrapper.setEntity(user);
-        wrapper.eq("account",account);
-        User u = service.selectOne(wrapper);
-        if (u != null) {
-
-        }
-        return "redirect:/";
-    }
-
-
     @ApiOperation("访问注册页面")
     @GetMapping("r")
-    public String register(){
+    public String register() {
         return "/user/register";
     }
-
 
     @PostMapping("/reg")
     @ResponseBody
@@ -116,7 +85,7 @@ public class UserController {
         try {
             success = service.insert(user);
         } catch (Exception e) {
-            return Result.fail("注册失败",user);
+            return Result.fail("注册失败", user);
         }
         Result<User> result = Result.newInstance();
         result.success(success);
@@ -133,9 +102,6 @@ public class UserController {
     public Result modifyPassword(@PathVariable String account, @PathVariable String newPassword) {
         throw new RuntimeException("还没有实现");
     }
-
-
-
 
 
 }

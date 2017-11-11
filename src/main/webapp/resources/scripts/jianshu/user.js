@@ -12,13 +12,15 @@ function checkUserExists() {
 
 function _login(){
     var account = $('#account').val();
-    var password = $('#password').val();
-    $.post(getRootPath() + '/user/login',
+    var password = $('#inputPassword').val();
+    $.post(getRootPath() + '/login',
         {
         account:account,
         password:password
     },function(data){
-        console.log(data)
+        if(data){
+            
+        }
     });
 }
 
