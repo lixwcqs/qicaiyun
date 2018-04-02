@@ -1,7 +1,7 @@
 package com.cqs.qicaiyun.common.jwt;
 
 import com.cqs.qicaiyun.system.entity.User;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * Created by cqs on 2017/11/6.

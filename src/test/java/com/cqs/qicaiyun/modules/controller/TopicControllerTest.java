@@ -2,8 +2,7 @@ package com.cqs.qicaiyun.modules.controller;
 
 import com.cqs.configuration.TestController;
 import lombok.extern.log4j.Log4j2;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -44,16 +43,6 @@ public class TopicControllerTest extends TestController {
 
 
 
-    @DataProvider(name = "ids")
-    public Object[][] ids() {
-        return new Object[][]{{1L},{2L}};
-    }
-
-    @Test(dataProvider = "ids")
-    public void testFindById(long id) throws Exception {
-        mockMvc.perform(get("/topic/{topicId}",id))
-                .andExpect(status().isOk()).andDo(print());
-    }
 
     @Test
     public void testFollow() throws Exception {

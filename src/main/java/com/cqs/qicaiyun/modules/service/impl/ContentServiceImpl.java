@@ -5,20 +5,11 @@ import com.cqs.qicaiyun.modules.entity.Content;
 import com.cqs.qicaiyun.modules.mapper.ContentMapper;
 import com.cqs.qicaiyun.modules.service.ContentService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by cqs on 2017/8/20.
  */
 @Service
 public class ContentServiceImpl extends ServiceImpl<ContentMapper,Content> implements ContentService {
-
-//    @Override
-    @Transactional
-    public boolean insert(Content entity) {
-//        if (entity.getId() == 1L){
-//            throw new RuntimeException();
-//        }
-        return super.insert(entity);
-    }
+    
 }

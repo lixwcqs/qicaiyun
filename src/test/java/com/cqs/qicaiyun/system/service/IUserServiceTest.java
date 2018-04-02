@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.cqs.configuration.BaseConfigurationTestNG;
 import com.cqs.qicaiyun.mock.UserMock;
 import com.cqs.qicaiyun.system.entity.User;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import javax.annotation.Resource;
 

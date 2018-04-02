@@ -1,7 +1,7 @@
 package com.cqs.tool;
 
+import org.junit.Test;
 import org.springframework.util.AntPathMatcher;
-import org.testng.annotations.Test;
 
 /**
  * Created by cqs on 2017/11/5.

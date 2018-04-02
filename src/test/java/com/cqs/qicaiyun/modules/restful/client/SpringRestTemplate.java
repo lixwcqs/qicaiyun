@@ -2,12 +2,12 @@ package com.cqs.qicaiyun.modules.restful.client;
 
 import com.cqs.qicaiyun.system.entity.User;
 import org.apache.commons.net.util.Base64;
+import org.junit.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.client.AsyncRestTemplate;
 import org.springframework.web.client.RestTemplate;
-import org.testng.annotations.Test;
 
 import java.nio.charset.Charset;
 import java.util.concurrent.ExecutionException;

@@ -1,6 +1,6 @@
 package com.cqs.qicaiyun.common;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.FileInputStream;

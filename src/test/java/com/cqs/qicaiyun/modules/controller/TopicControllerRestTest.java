@@ -3,8 +3,8 @@ package com.cqs.qicaiyun.modules.controller;
 import com.cqs.configuration.TestSimpleController;
 import com.cqs.qicaiyun.modules.entity.Article;
 import lombok.extern.log4j.Log4j2;
+import org.junit.Test;
 import org.springframework.http.ResponseEntity;
-import org.testng.annotations.Test;
 
 import java.util.List;
 

@@ -9,9 +9,12 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *  返回结果格式
  * Created by cqs on 2017/11/9.
  */
 @Component
@@ -20,20 +23,6 @@ public class HessianServiceImpl implements HessianService {
 
     @Resource(name = "userService")
     private IUserService userService;
-
-    @Override
-    public Result<List<User>> getUsers(Page<User> page, Wrapper<User> wrapper) {
-        @SuppressWarnings("unchecked")
-        Result<List<User>> userResult = Result.ok();
-        try {
-            userResult.data(userService.selectPage(page, wrapper).getRecords());
-        } catch (Exception e) {
-            log.error("查询用户信息异常",e);
-            userResult.success(false);
-            userResult.message(e.getMessage());
-        }
-        return userResult;
-    }
 
     @Override
     public List<User> getUsers2(Page<User> page, Wrapper<User> wrapper) {
@@ -45,6 +34,18 @@ public class HessianServiceImpl implements HessianService {
         User user = new User();
         user.setAccount("1");
         user.setPassword("2");
+        user.setCTime(LocalDateTime.now());
         return user;
+    }
+
+    @Override
+    public Result<String> test() {
+
+        List<String> ss = new ArrayList<>();
+        ss.add("1");
+        ss.add("2");
+        ss.add("3");
+        Result<String> result = new Result<String>().data(ss);
+        return result;
     }
 }

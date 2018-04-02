@@ -16,7 +16,7 @@ public class ArticleMock {
 
     public static Article mockArticle(){
         Article article = new Article();
-        article.setAuthor("七蒙主");
+        article.setAuthorId(1L);
         article.setContent("第三次财富大洗牌第三次财富大洗牌第三次财富大洗牌");
         article.setTitle("第三次财富大洗牌，如何成为真正的赢家");
         article.setCTime(LocalDateTime.now());

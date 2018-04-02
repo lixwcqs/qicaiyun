@@ -7,7 +7,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StopWatch;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -16,6 +15,9 @@ import java.util.concurrent.TimeoutException;
 
 /**
  * 拦截远程服务访问方法 在线程中执行
+ * <p>
+ * 适合于client端：请求方
+ * 服务端不要配置
  * Created by cqs on 2017/11/9.
  */
 @Aspect
@@ -27,6 +29,22 @@ public class HessianServiceAspect {
     @Pointcut("this(com.cqs.qicaiyun.services.HessianService)")
     private void hessianService() {
     }
+
+//    @Pointcut("execution(public String java.time.LocalDateTime.toString())")
+//    private void localDateTime() {
+//    }
+
+
+//    @Around("localDateTime()")
+//    public Object formatDatTime(ProceedingJoinPoint pjp) throws Throwable {
+//        LocalDateTime target = (LocalDateTime) pjp.getTarget();
+//        String result = target.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:ss:mm"));
+//        System.out.println(result);
+//        String res = (String) pjp.proceed();
+//        res = result;
+//        System.out.println("没有用："+target.toString());
+//        return res;
+//    }
 
 
     @Around("hessianService()")
@@ -49,20 +67,20 @@ public class HessianServiceAspect {
         return result;
     }
 
-    @Around("hessianService()")
-    public void stopWatch(ProceedingJoinPoint pjp) {
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
-        try {
-            pjp.proceed();
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-
-        stopWatch.stop();
-        System.out.println(stopWatch.getTotalTimeMillis());
-
-    }
+//    @Around("hessianService()")
+//    public void stopWatch(ProceedingJoinPoint pjp) {
+//        StopWatch stopWatch = new StopWatch();
+//        stopWatch.start();
+//        try {
+//            pjp.proceed();
+//        } catch (Throwable throwable) {
+//            throwable.printStackTrace();
+//        }
+//
+//        stopWatch.stop();
+//        System.out.println(stopWatch.getTotalTimeMillis());
+//
+//    }
 
 
 }

@@ -2,7 +2,7 @@ package com.cqs.qicaiyun.system.filter;
 
 import com.cqs.qicaiyun.common.jwt.TokenManager;
 import com.google.common.collect.Lists;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.AntPathMatcher;
 
 import javax.servlet.*;

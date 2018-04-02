@@ -4,7 +4,7 @@ import com.cqs.configuration.BaseConfigurationTestNG;
 import com.cqs.qicaiyun.mock.FollowerMock;
 import com.cqs.qicaiyun.modules.entity.Follower;
 import com.cqs.qicaiyun.modules.helper.FollowerType;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import javax.annotation.Resource;
 import java.util.List;

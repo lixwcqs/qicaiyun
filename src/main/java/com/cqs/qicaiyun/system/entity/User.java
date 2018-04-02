@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -38,6 +39,8 @@ public class User implements Serializable {
     private String image;//touxiang
     private String site;//
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:ss:mm")
     private LocalDateTime cTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:ss:mm")
     private LocalDateTime uTime;
 }

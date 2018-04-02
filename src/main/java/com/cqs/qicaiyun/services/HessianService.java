@@ -12,8 +12,9 @@ import java.util.List;
  */
 public interface HessianService {
 
-    Result<List<User>> getUsers(Page<User> page, Wrapper<User> wrapper);
     List<User> getUsers2(Page<User> page, Wrapper<User> wrapper);
     User getUsers3();
+
+    Result<String> test();
 
 }

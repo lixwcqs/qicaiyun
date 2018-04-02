@@ -1,16 +1,12 @@
 package com.cqs.tool.rest;
 
 import com.cqs.qicaiyun.conf.JacksonConfig;
-import com.cqs.qicaiyun.modules.entity.Article;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
 
 public class RestTemplateDemo {
     private static RestTemplate restTemplate = createRestTemplate();
@@ -39,20 +35,20 @@ public class RestTemplateDemo {
         return restTemplate;
     }
 
-
-    @DataProvider(name = "ids")
-    public static Object[][] primeNumbers() {
-        return new Object[][]{{1L},{2L}};
-    }
-
-    //测试
-    @Test(dataProvider = "ids")
-    public void someRestCall(Long id) {
-        restTemplate = createRestTemplate();
-        Article article = restTemplate.getForObject(getURL("/article/find/{id}"),
-                Article.class, id);
-        System.out.println(article);
-        assertEquals(article.getId(), id);
-    }
+//
+//    @DataProvider(name = "ids")
+//    public static Object[][] primeNumbers() {
+//        return new Object[][]{{1L},{2L}};
+//    }
+//
+//    //测试
+//    @Test(dataProvider = "ids")
+//    public void someRestCall(Long id) {
+//        restTemplate = createRestTemplate();
+//        Article article = restTemplate.getForObject(getURL("/article/find/{id}"),
+//                Article.class, id);
+//        System.out.println(article);
+//        assertEquals(article.getId(), id);
+//    }
 
 }

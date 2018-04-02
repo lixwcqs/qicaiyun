@@ -3,6 +3,7 @@ package com.cqs.qicaiyun.system.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.cqs.qicaiyun.common.Result;
+import com.cqs.qicaiyun.common.SimpleResult;
 import com.cqs.qicaiyun.system.entity.User;
 import com.cqs.qicaiyun.system.service.IUserService;
 import com.sun.istack.internal.NotNull;
@@ -41,12 +42,12 @@ public class UserController {
     @ResponseBody
     @ApiOperation("更新本地用户信息")
     //@ApiImplicitParams({@ApiImplicitParam(name = "user",value = "用户信息",paramType = "form", dataTypeClass = User.class, required = true)})
-    public Result<User> updateUser(@NotNull @RequestBody User user) {
+    public SimpleResult<Boolean> updateUser(@NotNull @RequestBody User user) {
         //注意：账号字段不可修改
         // ----------------------------------  防止其他字段被更新
         boolean success = service.updateById(user);
-        Result<User> result = Result.newInstance();
-        result.success(success).data(user);
+        SimpleResult<Boolean> result = new SimpleResult<>();
+        result.status(success).data(success);
         return result;
     }
 
@@ -63,34 +64,18 @@ public class UserController {
     @GetMapping("/check/{account}")
     @ResponseBody
     @ApiOperation(value = "(用户中心)账号是否存在", notes = "success：表示账号存在，反之不存在")
-    public Result checkUserExist(@ApiParam(name = "account", value = "用户账号", required = true) @PathVariable String account) {
+    public SimpleResult checkUserExist(@ApiParam(name = "account", value = "用户账号", required = true) @PathVariable String account) {
         Wrapper wrapper = new EntityWrapper();
         wrapper.eq("account", account);
         int num = service.selectCount(wrapper);
-        return num > 0 ? Result.ok() : Result.fail("账号不存在");
+        boolean status = num > 0;
+        return new SimpleResult<Boolean>().status(status).data(status);
     }
 
     @ApiOperation("访问注册页面")
     @GetMapping("r")
     public String register() {
         return "/user/register";
-    }
-
-    @PostMapping("/reg")
-    @ResponseBody
-    @ApiOperation(value = "本地注册", notes = "待实现：统一在用户管理中心注册")
-    public Result<User> register(@RequestBody User user) {
-        boolean success = false;
-        log.debug(Thread.currentThread().getName());
-        try {
-            success = service.insert(user);
-        } catch (Exception e) {
-            return Result.fail("注册失败", user);
-        }
-        Result<User> result = Result.newInstance();
-        result.success(success);
-        result.data(user);
-        return result;
     }
 
 

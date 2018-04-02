@@ -11,7 +11,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
@@ -59,7 +58,8 @@ public class IndexController {
             cookie.setHttpOnly(true);
             request.getSession(true).setAttribute("cookie", cookie);
             response.addCookie(cookie);
-            manager.addToken(token, user);
+            manager.addToken(token, u);
+            request.getSession(true).setAttribute("_user", u);
             return "redirect:/fd";
         } else {
             request.setAttribute("em", "用户名或者密码错误");
@@ -68,9 +68,4 @@ public class IndexController {
     }
 
 
-    @RequestMapping("/")
-    @ApiOperation(value = "系统首页")
-    public String home() {
-        return "/index";
-    }
 }

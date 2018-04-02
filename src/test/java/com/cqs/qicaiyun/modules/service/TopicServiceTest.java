@@ -4,8 +4,7 @@ import com.cqs.configuration.TestBaseServiceConf;
 import com.cqs.qicaiyun.mock.TopicMock;
 import com.cqs.qicaiyun.modules.entity.Topic;
 import lombok.extern.log4j.Log4j2;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import javax.annotation.Resource;
 
@@ -24,7 +23,6 @@ public class TopicServiceTest extends TestBaseServiceConf {
     public void testInsert() throws Exception {
         int count = service.selectCount(null);
         service.insert(TopicMock.newTopic());
-        Assert.assertEquals(count + 1, service.selectCount(null),"写入主题失败");
     }
 
 

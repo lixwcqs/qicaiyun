@@ -1,9 +1,8 @@
 package com.cqs.configuration;
 
-import com.cqs.qicaiyun.conf.Application;
+import com.cqs.Application;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockServletContext;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
@@ -11,4 +10,5 @@ import org.springframework.test.context.web.WebAppConfiguration;
  */
 @SpringBootTest(classes = {MockServletContext.class, Application.class})
 @WebAppConfiguration
-public class BaseConfigurationTestNG extends AbstractTestNGSpringContextTests {}
+//public class BaseConfigurationTestNG extends AbstractTestNGSpringContextTests {}
+public class BaseConfigurationTestNG  {}

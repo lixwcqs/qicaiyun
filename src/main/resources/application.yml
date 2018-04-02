@@ -14,72 +14,20 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
   session:
     store-type: none
-  mvc:
-      view:
-        prefix: /WEB-INF/view/
-        suffix: .jsp
   devtools:
       restart:
-        additional-exclude: scripts/**,template/**,resources/**,WEB-INF/**
-
-
+        additional-exclude: resources/**
+  thymeleaf:
+     cache: false
+     prefix: classpath:/webapp/pages/
+     suffix: .html
+     encoding: UTF-8
+     content-type: text/html
+     mode: LEGACYHTML5
+#     mode: HTML5
 server:
   port: 9090
   context-path: /qicaiyun
-
-
-
-
-
-
-
-
-#spring.datasource.druid.initial-size=1
-#spring.datasource.druid.min-idle=1
-#spring.datasource.druid.max-active=20
-#spring.datasource.druid.test-on-borrow=true
-#spring.datasource.druid.stat-view-servlet.allow=true
-
-#management:
-#  security:
-#    enabled: false #关掉安全认证
-#  context-path: /management #actuator的访问路径　
-#
-#
-#druid:
-#  pool:
-#    initialSize: 10
-#    maxActive: 100
-#    minIdle: 10
-#
-#
-
-#mybatis-plus
-##NOTE:configLocation与configuration不可以同时设定
-mybatis-plus:
-  check-config-location: true
-  mapper-locations: classpath*:mapper/*.xml
-  typeAliasesPackage: com.cqs.qicaiyun.modules.entity
-  config-location: classpath:mybatis-config.xml
-
-
-
-#
-#  global-config:
-##    值	描述
-##    IdType.AUTO	数据库ID自增
-##    IdType.INPUT	用户输入ID
-##    IdType.ID_WORKER	全局唯一ID，内容为空自动填充（默认配置）
-##    IdType.UUID	全局唯一ID，内容为空自动填充
-#    id-type: 0
-#    field-strategy: 2
-#    db-column-underline: true
-#    refresh-mapper: true
-
-##  configuration:
-##    cache-enabled: false
-##    map-underscore-to-camel-case: true
-#
 
 
 #####日志

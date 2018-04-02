@@ -2,13 +2,12 @@ package com.cqs.qicaiyun.modules.service;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.cqs.qicaiyun.conf.Application;
+import com.cqs.Application;
 import com.cqs.qicaiyun.mock.CommentMock;
 import com.cqs.qicaiyun.modules.entity.Comment;
 import com.cqs.qicaiyun.system.service.IUserService;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.Test;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.List;
  * Created by cqs on 2017/8/27.
  */
 @SpringBootTest(classes = Application.class)
-public class CommentServiceTest extends AbstractTestNGSpringContextTests {
+public class CommentServiceTest  {
 
     @Resource(name = "commentServiceImpl")
     private CommentService service;

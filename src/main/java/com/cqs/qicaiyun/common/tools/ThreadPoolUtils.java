@@ -22,10 +22,11 @@ public class ThreadPoolUtils {
         private static ExecutorService getInstance() {
             ThreadFactory tf = r -> {
                 Thread t = new Thread(r);
-                t.setName("自定义线程-qicaiyun");
+                t.setName("自定义线程-qicaiyun-"+t.getId());
                 return t;
             };
-            return Executors.newCachedThreadPool(tf);
+
+            return Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() , tf);
         }
     }
 }

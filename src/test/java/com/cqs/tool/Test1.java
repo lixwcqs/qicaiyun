@@ -1,13 +1,12 @@
 package com.cqs.tool;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.security.MessageDigest;
 
 /**
  * Created by cqs on 2017/10/22.
  */
-@Test
 public class Test1 {
 
     @Test
