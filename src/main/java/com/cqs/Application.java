@@ -1,5 +1,7 @@
 package com.cqs;
 
+import com.weibo.api.motan.common.MotanConstants;
+import com.weibo.api.motan.util.MotanSwitcherUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -21,6 +23,7 @@ public class Application extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
+        MotanSwitcherUtil.setSwitcherValue(MotanConstants.REGISTRY_HEARTBEAT_SWITCHER, true);
         SpringApplication.run(Application.class, args);
     }
 

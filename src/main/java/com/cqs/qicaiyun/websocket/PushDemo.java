@@ -29,7 +29,7 @@ public class PushDemo implements InitializingBean{
                 server.sendMessage("Hello--");
                 log.info("后台主动推动消息");
             }
-        },10,3,TimeUnit.SECONDS);
+        },10,3,TimeUnit.MINUTES);
 
     }
 }

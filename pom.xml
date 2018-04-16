@@ -223,7 +223,6 @@
             <groupId>com.weibo</groupId>
             <artifactId>motan-transport-netty</artifactId>
             <version>${motan.version}</version>
-
         </dependency>
 
         <dependency>
@@ -232,6 +231,11 @@
             <version>${motan.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.weibo</groupId>
+            <artifactId>motan-protocol-restful</artifactId>
+            <version>${motan.version}</version>
+        </dependency>
 
 
         <!--序列化-->
