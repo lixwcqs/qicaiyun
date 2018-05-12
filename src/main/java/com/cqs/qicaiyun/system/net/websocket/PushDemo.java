@@ -1,8 +1,7 @@
-package com.cqs.qicaiyun.websocket;
+package com.cqs.qicaiyun.system.net.websocket;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.concurrent.Executors;
@@ -12,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by cqs on 2018/3/31.
  */
-@Component
+//@Component
 @Log4j2
 public class PushDemo implements InitializingBean{
 
@@ -29,7 +28,7 @@ public class PushDemo implements InitializingBean{
                 server.sendMessage("Hello--");
                 log.info("后台主动推动消息");
             }
-        },10,3,TimeUnit.MINUTES);
+        },10,10,TimeUnit.SECONDS);
 
     }
 }

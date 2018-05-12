@@ -3,12 +3,6 @@ spring:
     name: qicaiyun
   profiles:
     active: dev
-  datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/qicaiyun
-    username: root
-    password: 1111
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
@@ -22,22 +16,30 @@ spring:
      prefix: classpath:/webapp/pages/
      suffix: .html
      encoding: UTF-8
-     content-type: text/html
+#     content-type: text/html
      mode: LEGACYHTML5
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
 #     mode: HTML5
 server:
   port: 9090
-  context-path: /qicaiyun
+  servlet:
+    context-path: /qicaiyun
+  tomcat:
+    uri-encoding: utf-8
 
 
 #####日志
 logging:
   config: classpath:log4j2.xml
   level:
-    root: WARN
+    root: debug
     org:
       springframework:
-        web: WARN
+        web: debug
       hibernate: ERROR
     tk:
       mybatis:

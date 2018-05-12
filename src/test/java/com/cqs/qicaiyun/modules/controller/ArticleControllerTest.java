@@ -31,7 +31,7 @@ public class ArticleControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    @MockBean(name = "contentServiceImpl",value = ArticleServiceImpl.class)
+    @MockBean(name = "articleServiceImpl2",value = ArticleServiceImpl.class)
     private ArticleService service;
 
     @Test

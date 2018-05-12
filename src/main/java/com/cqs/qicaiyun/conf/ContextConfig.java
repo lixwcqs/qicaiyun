@@ -3,7 +3,6 @@ package com.cqs.qicaiyun.conf;
 import com.cqs.qicaiyun.services.HessianService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.remoting.caucho.HessianProxyFactoryBean;
 import org.springframework.remoting.caucho.HessianServiceExporter;
@@ -16,7 +15,7 @@ import javax.annotation.Resource;
  *
  * Created by cqs on 2017/11/9.
  */
-@Configuration
+//@Configuration
 @PropertySource("classpath:config.properties")
 public class ContextConfig {
 

@@ -1,10 +1,8 @@
-package com.cqs.qicaiyun.websocket;
+package com.cqs.qicaiyun.system.net.websocket;
 
 import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
-import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,10 +13,10 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * 无法创建单例
  * Created by cqs on 2018/3/31.
  */
-@ServerEndpoint("/ws")
-@Component
+//@ServerEndpoint("/ws")
+//@Component
 @Log4j2
-public class WebSocketServer {
+public class WebSocketServer  {
 
     private Session session;
     private static CopyOnWriteArraySet<WebSocketServer> wsClientMap = new CopyOnWriteArraySet<>();
@@ -48,7 +46,6 @@ public class WebSocketServer {
         t.printStackTrace();
         log.info("error");
     }
-
 
     public void sendMessage(String message) {
         try {

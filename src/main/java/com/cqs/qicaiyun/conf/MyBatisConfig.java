@@ -1,5 +1,6 @@
 package com.cqs.qicaiyun.conf;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.baomidou.mybatisplus.entity.GlobalConfiguration;
 import com.baomidou.mybatisplus.enums.FieldStrategy;
 import com.baomidou.mybatisplus.enums.IdType;
@@ -28,6 +29,10 @@ import java.math.RoundingMode;
 @Log4j2
 public class MyBatisConfig {
 
+    public MyBatisConfig() {
+        System.out.println();
+    }
+
     /**
      * @param ds 我也不知道哪里生成了DataSource 反正他就是生成了
      * @return
@@ -40,6 +45,12 @@ public class MyBatisConfig {
          * MybatisSqlSessionFactoryBean 对应于mybatis-plus
          */
         MybatisSqlSessionFactoryBean fb = new MybatisSqlSessionFactoryBean();
+        if (ds instanceof DruidDataSource){
+            DruidDataSource dds = (DruidDataSource) ds;
+            dds.setMaxActive(50);
+            dds.setMinIdle(4);
+            dds.addFilters("stat");
+        }
         fb.setDataSource(ds);//指定数据源(这个必须有，否则报错)
         //下边两句仅仅用于*.xml文件，如果整个持久层操作不需要使用到xml文件的话（只用注解就可以搞定），则不加
         fb.setTypeAliasesPackage("com.cqs.qicaiyun.modules.entity");//指定基包

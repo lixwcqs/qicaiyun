@@ -1,0 +1,84 @@
+spring:
+  application:
+    name: qicaiyun
+  profiles:
+    active: dev
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/qicaiyun
+    username: root
+    password: 1111
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  session:
+    store-type: none
+  devtools:
+      restart:
+        additional-exclude: resources/**
+  thymeleaf:
+     cache: false
+     prefix: classpath:/webapp/pages/
+     suffix: .html
+     encoding: UTF-8
+     content-type: text/html
+     mode: HTML5
+
+server:
+    port: 9090
+    context-path: /qicaiyun
+
+
+##配置
+#eureka:
+#  client:
+#    register-with-eureka: false
+#    fetch-registry: false
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/ # 服务注册中心地址
+
+
+
+#spring.datasource.druid.initial-size=1
+#spring.datasource.druid.min-idle=1
+#spring.datasource.druid.max-active=20
+#spring.datasource.druid.test-on-borrow=true
+#spring.datasource.druid.stat-view-servlet.allow=true
+
+#management:
+#  security:
+#    enabled: false #关掉安全认证
+#  context-path: /management #actuator的访问路径　
+#
+#
+#druid:
+#  pool:
+#    initialSize: 10
+#    maxActive: 100
+#    minIdle: 10
+#
+#
+
+#mybatis-plus
+##NOTE:configLocation与configuration不可以同时设定
+mybatis-plus:
+  check-config-location: true
+  mapper-locations: classpath*:mapper/*.xml
+  typeAliasesPackage: com.cqs.qicaiyun.modules.entity
+  config-location: classpath:mybatis-config.xml
+
+
+#####日志
+logging:
+  config: classpath:log4j2.xml
+  level:
+    root: WARN
+    org:
+      springframework:
+        web: WARN
+      hibernate: ERROR
+    tk:
+      mybatis:
+        springboot:
+          mapper: trace

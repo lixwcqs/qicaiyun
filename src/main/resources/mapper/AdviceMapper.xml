@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqs.qicaiyun.modules.mapper.AdviceMapper">
+  <resultMap id="BaseResultMap" type="com.cqs.qicaiyun.modules.entity.Advice">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ip" jdbcType="INTEGER" property="ip" />
+    <result column="app" jdbcType="INTEGER" property="app" />
+    <result column="advice" jdbcType="INTEGER" property="advice" />
+    <result column="os" jdbcType="INTEGER" property="os" />
+    <result column="channel" jdbcType="INTEGER" property="channel" />
+    <result column="click_time" jdbcType="TIMESTAMP" property="clickTime" />
+    <result column="attributed_time" jdbcType="TIMESTAMP" property="attributedTime" />
+    <result column="is_attributed" jdbcType="TINYINT" property="isAttributed" />
+    <result column="c_time" jdbcType="TIMESTAMP" property="cTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, ip, app, advice, os, channel, click_time, attributed_time, is_attributed, c_time
+  </sql>
+
+  <insert id="insertBatch" parameterType="com.cqs.qicaiyun.modules.entity.Advice">
+    insert into advice (ip, app, advice, 
+      os, channel, click_time, 
+      attributed_time, is_attributed, c_time
+      ) values
+    <foreach collection="list" item="item" separator="," >
+      (#{item.ip,jdbcType=INTEGER}, #{item.app,jdbcType=INTEGER}, #{item.advice,jdbcType=INTEGER},
+      #{item.os,jdbcType=INTEGER}, #{item.channel,jdbcType=INTEGER}, #{item.clickTime,jdbcType=TIMESTAMP},
+      #{item.attributedTime,jdbcType=TIMESTAMP}, #{item.isAttributed,jdbcType=TINYINT}, #{item.cTime,jdbcType=TIMESTAMP}
+      )
+    </foreach>
+
+  </insert>
+
+  <select id="selectById" parameterType="int" resultType="com.cqs.qicaiyun.modules.entity.Advice">
+    SELECT <include refid="Base_Column_List"/> from advice WHERE id = #{id}
+  </select>
+
+
+</mapper>

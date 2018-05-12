@@ -25,6 +25,10 @@ public class TopicServiceTest extends TestBaseServiceConf {
         service.insert(TopicMock.newTopic());
     }
 
+    @Test
+    public void insertBatch() throws Exception {
+        service.insertBatch(TopicMock.newTopics());
+    }
 
     @Test
     public void testSelectById() throws Exception {

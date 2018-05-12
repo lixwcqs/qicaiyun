@@ -1,5 +1,7 @@
 package com.cqs.configuration;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -7,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.stereotype.Controller;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.StopWatch;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
@@ -20,4 +23,20 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TestBaseServiceConf {
+
+    protected StopWatch stopWatch;
+
+    @Before
+    public void setUp() throws Exception {
+        stopWatch = new StopWatch();
+        stopWatch.start();
+
+    }
+
+
+    @After
+    public void tearDown() throws Exception {
+        stopWatch.stop();
+        System.out.println("运行时间: "+stopWatch.getTotalTimeMillis()/1000.0 + " 秒");
+    }
 }

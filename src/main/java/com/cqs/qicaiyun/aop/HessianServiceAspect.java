@@ -35,18 +35,6 @@ public class HessianServiceAspect {
 //    }
 
 
-//    @Around("localDateTime()")
-//    public Object formatDatTime(ProceedingJoinPoint pjp) throws Throwable {
-//        LocalDateTime target = (LocalDateTime) pjp.getTarget();
-//        String result = target.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:ss:mm"));
-//        System.out.println(result);
-//        String res = (String) pjp.proceed();
-//        res = result;
-//        System.out.println("没有用："+target.toString());
-//        return res;
-//    }
-
-
     @Around("hessianService()")
     public Object threadInvoker(ProceedingJoinPoint pjp) {
         Future<Object> future = ThreadPoolUtils.getInstance().submit(() -> {

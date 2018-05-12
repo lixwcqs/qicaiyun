@@ -16,8 +16,8 @@ public class PageData<T extends Serializable> implements Serializable {
     private static long serialVersionUID = 1L;
 
     private int page;//当前页码
-    private int pages;//一个多少页
-    private int total;//所有的记录数
+    private long pages;//一个多少页
+    private long total;//所有的记录数
 
     private List<T> list;
 

@@ -6,7 +6,6 @@ import com.cqs.qicaiyun.common.result.Result;
 import com.cqs.qicaiyun.common.result.SuccessResult;
 import com.cqs.qicaiyun.modules.entity.Article;
 import com.cqs.qicaiyun.modules.service.ArticleService;
-import com.cqs.qicaiyun.websocket.WebSocketServer;
 import com.sun.istack.internal.NotNull;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -14,7 +13,9 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
@@ -25,19 +26,14 @@ import java.util.List;
 /**
  * Created by cqs on 2017/8/21.
  */
-@RequestMapping("/article")
-@RestController
+//@RequestMapping("/article")
+//@RestController
 @Log4j2
 @Api("文章模块")
 public class ArticleController {
 
     @Resource(name = "articleServiceImpl")
-//    @Autowired
     private ArticleService service;
-
-    @Resource
-    private WebSocketServer server;
-
 
     //发布文章
     @ApiOperation("文章发布")
@@ -101,13 +97,14 @@ public class ArticleController {
 
     @GetMapping("/list")
     public List<String> list(){
-
         List<String> list = new ArrayList<>();
         list.add("Hello");
         list.add("World");
         list.add(new Date().toString());
         return list;
     }
+
+
 
     @GetMapping("/say")
     public String say(){

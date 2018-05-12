@@ -23,7 +23,8 @@ public class TopicMock {
                 "㊙️ 微信添加主编顾釉止微信【stay55555】，备注“漫画”，即可进入简书官方漫画手绘专题\n" +
                 "\n" +
                 "关注公众号“简宝玉”（jianshubaoyu），进入简书丰富多彩的专题社群！");
-        topic.setImg("http://upload.jianshu.io/collections/images/283250/%E6%BC%AB%E7%94%BB%E4%B8%93%E9%A2%98.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240");
+        topic.setAnnouncement("手绘");
+        topic.setImg("http://upload.jianshu.io/240");
         topic.setTopic("漫画·手绘");
         return topic;
     }

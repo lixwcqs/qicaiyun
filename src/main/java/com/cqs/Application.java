@@ -4,8 +4,7 @@ import com.weibo.api.motan.common.MotanConstants;
 import com.weibo.api.motan.util.MotanSwitcherUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
 /**
  * 置于项目根目录下
@@ -13,18 +12,15 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 //The @SpringBootApplication annotation is equivalent to using @Configuration, @EnableAutoConfiguration
 // and @ComponentScan with their default attributes:
 @SpringBootApplication
-//@EnableEurekaClient
-//@EnableFeignClients
-public class Application extends SpringBootServletInitializer {
+@ServletComponentScan
+public class Application {
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(Application.class);
-    }
+
 
     public static void main(String[] args) {
         MotanSwitcherUtil.setSwitcherValue(MotanConstants.REGISTRY_HEARTBEAT_SWITCHER, true);
         SpringApplication.run(Application.class, args);
+
     }
 
 

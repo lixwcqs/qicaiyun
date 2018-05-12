@@ -1,6 +1,6 @@
 package com.cqs.qicaiyun.common.mongo;
 
-import com.mongodb.WriteResult;
+import com.mongodb.client.result.DeleteResult;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -64,7 +64,7 @@ public interface MongoBaseDao<T, S extends Serializable>  {
      * @param id must not be {@literal null}.
      * @throws IllegalArgumentException in case the given {@code id} is {@literal null}
      */
-    WriteResult deleteById(S id);
+    DeleteResult deleteById(S id);
 
     /**
      * Deletes a given entity.
@@ -72,11 +72,11 @@ public interface MongoBaseDao<T, S extends Serializable>  {
      * @param entity
      * @throws IllegalArgumentException in case the given entity is {@literal null}.
      */
-    WriteResult delete(T entity);
+    DeleteResult delete(T entity);
 
 
     /**
      * Deletes all entities managed by the repository.
      */
-    WriteResult deleteAll();
+    DeleteResult deleteAll();
 }

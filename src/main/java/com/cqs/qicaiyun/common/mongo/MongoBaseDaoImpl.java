@@ -1,6 +1,6 @@
 package com.cqs.qicaiyun.common.mongo;
 
-import com.mongodb.WriteResult;
+import com.mongodb.client.result.DeleteResult;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -60,7 +60,7 @@ public abstract class MongoBaseDaoImpl<T, D extends Serializable> implements Mon
 
     //--------------------------------删----------------------------------------------------
     @Override
-    public WriteResult deleteAll() {
+    public DeleteResult deleteAll() {
         return getTemplate().remove(new Query(), getEntityClass());
     }
 
@@ -105,14 +105,14 @@ public abstract class MongoBaseDaoImpl<T, D extends Serializable> implements Mon
     }
 
     @Override
-    public WriteResult deleteById(D id) {
+    public DeleteResult deleteById(D id) {
         Query query = new Query();
         query.addCriteria(Criteria.where("id").is(id));//
         return getTemplate().remove(query, getEntityClass());
     }
 
     @Override
-    public WriteResult delete(T entity) {
+    public DeleteResult delete(T entity) {
         return getTemplate().remove(entity);
     }
 
