@@ -8,5 +8,7 @@ import com.cqs.qicaiyun.modules.entity.Advice;
  */
 public interface AdviceService  extends IService<Advice> {
 
-    void readSave(String file);
+    void batchInsertMQ();
+    void batchInsert(String file);
+    void writeMQ(String file);
 }

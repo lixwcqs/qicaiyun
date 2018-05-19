@@ -28,7 +28,7 @@ public class AdviceController {
         int tasks = 35;
         for (int i = 0; i < tasks; i++) {
             log.info("处理第{}个文件:" + i);
-            service.readSave(dir + i + ".csv");
+            service.batchInsert(dir + i + ".csv");
         }
         log.info("处理完所有的文件");
         return Mono.just(true);

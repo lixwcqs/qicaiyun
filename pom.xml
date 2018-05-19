@@ -3,7 +3,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cqs</groupId>
     <artifactId>qicaiyun</artifactId>
-    <packaging>war</packaging>
+    <!--<packaging>war</packaging>-->
+    <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>qicaiyun Maven Webapp</name>
     <url>http://maven.apache.org</url>
@@ -11,7 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <JAVA_HOME>C:/Program Files/Java/jdk1.8.0_72</JAVA_HOME>
+        <JAVA_HOME>/home/li/softs/jdk/jdk1.8.0_172</JAVA_HOME>
         <spring.cloud.version>1.4.0.RELEASE</spring.cloud.version>
         <jackson.version>2.9.1</jackson.version>
         <motan.version>1.1.0</motan.version>
@@ -21,7 +22,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.1.RELEASE</version>
+        <version>2.0.2.RELEASE</version>
     </parent>
 
     <dependencies>
@@ -309,6 +310,10 @@
                     <artifactId>slf4j-api</artifactId>
                     <groupId>org.slf4j</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>netty</artifactId>
+                    <groupId>io.netty</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -397,6 +402,15 @@
         </dependency>
 
 
+
+        <!-- rabbitmq amqp-client -->
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>5.2.0</version>
+        </dependency>
+
+
         <!--开发者工具-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -412,7 +426,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.2</version>
+                <version>3.7.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -436,8 +450,44 @@
                 <!--</dependencies>-->
                 <configuration>
                     <fork>true</fork>
+                    <mainClass>com.cqs.Application</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+            </plugin>
+
+
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <!-- ${project.artifactId}：即artifactId，myservice1-docker ${project.version}:即version，1.0-SNAPSHOT -->
+                    <imageName>${project.artifactId}:${project.version}</imageName><!-- 镜像名称 -->
+                    <dockerDirectory>${basedir}/src/main/resources/docker</dockerDirectory><!-- Dockerfile文件地址 -->
+                    <resources>
+                        <resource>
+                            <!-- <targetPath>/</targetPath> -->
+                            <!-- ${project.build.directory},项目构建输出目录，默认为target/ -->
+                            <directory>${project.build.directory}</directory>
+                            <!-- ${project.build.directory},打包出来的jar名称，默认为${project.artifactId}-${project.version} -->
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
                 </configuration>
             </plugin>
+
+
         </plugins>
+
+
+
     </build>
 </project>

@@ -25,6 +25,8 @@ public class AdviceServiceTest extends TestBaseServiceConf implements BeanFactor
 
     private BeanFactory beanFactory;
 
+    private String dir = "/home/li/softs/mysql/small_train/";
+
 
     @Test
     public void scope() throws Exception {
@@ -54,7 +56,7 @@ public class AdviceServiceTest extends TestBaseServiceConf implements BeanFactor
                 @Override
                 public void run() {
 //                    AdviceService service = beanFactory.getBean(AdviceServiceImpl.class);
-                    service.readSave(task);
+                    service.batchInsert(task);
                     latch.countDown();
                 }
             });
@@ -68,16 +70,29 @@ public class AdviceServiceTest extends TestBaseServiceConf implements BeanFactor
     }
 
 
+    @Test
+    public void batchInsertMQ() {
+        service.batchInsertMQ();
+    }
 
+    @Test
+    public void writeMQ() {
+        int tasks = 1;
+        for (int i = 0; i < tasks; i++) {
+            log.info("处理第{}个文件:" + i);
+            service.writeMQ(dir + i + ".csv");
+        }
+        log.info("处理完所有的文件");
 
+    }
 
     @Test
     public void readSave2() throws Exception {
-        String dir = "F:/data/small_train/";
+
         int tasks = 35;
         for (int i = 0; i < tasks; i++) {
             log.info("处理第{}个文件:" + i);
-            service.readSave(dir + i + ".csv");
+            service.batchInsert(dir + i + ".csv");
         }
         log.info("处理完所有的文件");
 
