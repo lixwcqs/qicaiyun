@@ -6,10 +6,8 @@ import com.cqs.qicaiyun.modules.service.AdviceService;
 import com.rabbitmq.client.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,7 +16,7 @@ import java.util.concurrent.*;
 
 @Log4j2
 @Component
-@Scope("prototype")
+//@Scope("prototype")
 public class AdviceRabbitMQUtil {
     private static final ConnectionFactory factory = initConnectionFactory();
 
@@ -41,37 +39,45 @@ public class AdviceRabbitMQUtil {
         return factory;
     }
 
-    public void consumer() {
+    public void consumer(String queue) {
+
         channel();
         try {
-            List<Advice> list = new ArrayList<>();
-            channel.queueDeclare(defQueue, true, false, false, null);
+            final List<Advice> list = new ArrayList<>();
+            channel.queueDeclare(queue, true, false, false, null);
             int batch = 1000;
             Consumer consumer = new DefaultConsumer(channel) {
                 @Override
                 public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+                    //
+//                    log.info("当前线程{}", Thread.currentThread() + "\t" + list.size());
                     //do work
                     Advice advice = kryo.deserialize(body, Advice.class);
                     list.add(advice);
                     if (list.size() >= batch) {
-                        log.debug(Thread.currentThread() +"\t" + adviceService + "模拟批量处理{}条消息", list.size());
+                        //log.info(Thread.currentThread() +"\t" + adviceService + "模拟批量处理{}条消息", list.size());
                         adviceService.insertBatch(list);
                         list.clear();
                     }
                 }
             };
-            channel.basicConsume(defQueue, consumer);
+            channel.basicConsume(queue, true, consumer);
+            channel.confirmSelect();
             log.debug("consumer over...");
         } catch (IOException e) {
             throw new RuntimeException("发送消息失败" + e.getCause());
         }
     }
 
+    public void consumer() {
+        consumer(defQueue);
+    }
+
     public <T extends Serializable> void sendMessage(T message) {
         sendMessage(kryo.serialize(message));
     }
 
-    public void sendMessage(byte[] message) {
+    private void sendMessage(byte[] message) {
         channel();
         try {
             if (!isDecalred) {

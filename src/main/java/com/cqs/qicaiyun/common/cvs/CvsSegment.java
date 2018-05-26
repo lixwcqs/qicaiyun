@@ -24,16 +24,16 @@ public class CvsSegment {
     private static int fnum;
     private static int tnum;
     private static String dir = "F:/data/";
-//    private static String fName = "sample_train";
+    //    private static String fName = "sample_train";
     private static String fName = "train";
     private static String subir = dir + "small_" + fName + "/";
     private static String suffix = ".csv";
     private static String header = "";
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         for (int i = 1000; i < 2000; i++) {
             File file = new File(subir + i + suffix);
-            if (file.exists()){
+            if (file.exists()) {
                 file.delete();
             }
         }
@@ -57,7 +57,7 @@ public class CvsSegment {
             throw new RuntimeException();
         }
         int size = 200 << 10;
-        long bsize = size <<10;
+        long bsize = size << 10;
         splitBySize(size);
         fnum = (int) Math.ceil((flength / (bsize)));
 //        just();
@@ -78,7 +78,7 @@ public class CvsSegment {
             RandomAccessFile rf0 = new RandomAccessFile(dir + fName + suffix, "r");
             flength = rf0.length();
             header = rf0.readLine();
-            IOUtils.closeQuietly(rf0);
+            rf0.close();
         } catch (IOException e) {
             //e.printStackTrace();
             throw new RuntimeException();
@@ -144,7 +144,7 @@ public class CvsSegment {
                 prefile = new RandomAccessFile(pf, "rw");
                 aftfile = new RandomAccessFile(af, "rw");
                 String preLastLine = lastLine(pf);
-                log.info(pf+"\t"+preLastLine);
+                log.info(pf + "\t" + preLastLine);
                 //需要合并
                 if (StringUtils.isNotEmpty(preLastLine) && preLastLine.split(",").length != COLUMNS) {
                     //将preLastLine和aftfile文件的第一行拼接
@@ -155,8 +155,8 @@ public class CvsSegment {
                     //校验是否合法
                     aftfile.seek(0);
                     String line = aftfile.readLine();
-                    if (line.split(",").length!=COLUMNS){
-                        throw new RuntimeException(af+"修正文件异常: "+line+"\t---"+preLastLine);
+                    if (line.split(",").length != COLUMNS) {
+                        throw new RuntimeException(af + "修正文件异常: " + line + "\t---" + preLastLine);
                     }
                     //prefile删除最后一行
                     deleteLastLine(pf);
@@ -223,7 +223,13 @@ public class CvsSegment {
 //            e.printStackTrace();
             log.info("读取文件{}最后一行失败", file, e.getMessage());
         } finally {
-            IOUtils.closeQuietly(f);
+            if (f!=null){
+                try {
+                    f.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return -1;
     }
@@ -237,12 +243,17 @@ public class CvsSegment {
 //            log.info(pos+"\t"+rf.length());
             rf.seek(pos);
             String result = rf.readLine();
-            rf.setLength(pos-1);
+            rf.setLength(pos - 1);
             return result;
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            IOUtils.closeQuietly(rf);
+        } finally {
+            try {
+                if (rf != null)
+                    rf.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

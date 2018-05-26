@@ -30,7 +30,7 @@ public class KryoUtils {
     //线程绑定
     private final static ThreadLocal<Kryo> local = ThreadLocal.withInitial(() -> {
         Kryo kryo = new Kryo();
-        System.out.println(Thread.currentThread().getId() + "\t" + kryo);
+        log.debug(Thread.currentThread().getId() + "\t" + kryo);
         return kryo;
     });
 

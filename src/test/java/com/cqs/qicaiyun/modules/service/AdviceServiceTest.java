@@ -13,6 +13,7 @@ import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by cqs on 2018/4/21.
@@ -29,50 +30,9 @@ public class AdviceServiceTest extends TestBaseServiceConf implements BeanFactor
 
 
     @Test
-    public void scope() throws Exception {
-        AdviceService service = beanFactory.getBean(AdviceService.class);
-        AdviceService service2 = beanFactory.getBean(AdviceService.class);
-        System.out.println();
-    }
-
-    //    @Test
-    public void readSave() throws Exception {
-
-        service.selectById(1);
-        System.out.println("1");
-        ExecutorService exec = Executors.newFixedThreadPool(8);
-        String dir = "F:/data/small_train/";
-        int tasks = 1;
-        final Queue<String> queue = new LinkedList<>();
-        for (int i = 0; i < tasks; i++) {
-            queue.add(dir + i + ".csv");
-        }
-
-
-        CountDownLatch latch = new CountDownLatch(tasks);
-        while (queue.size() != 0) {
-            final String task = queue.poll();
-            exec.submit(new Runnable() {
-                @Override
-                public void run() {
-//                    AdviceService service = beanFactory.getBean(AdviceServiceImpl.class);
-                    service.batchInsert(task);
-                    latch.countDown();
-                }
-            });
-
-
-        }
-        latch.await();
-        log.info("处理完所有的文件");
-        exec.shutdown();
-
-    }
-
-
-    @Test
-    public void batchInsertMQ() {
+    public void batchInsertMQ() throws Exception {
         service.batchInsertMQ();
+        TimeUnit.DAYS.sleep(1);
     }
 
     @Test
