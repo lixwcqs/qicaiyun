@@ -76,6 +76,7 @@ public class AdviceRabbitMQUtil {
         try {
             if (!isDecalred) {
                 channel.queueDeclare(defQueue, true, false, false, null);
+                isDecalred = true;
             }
             channel.basicPublish("", defQueue, null, message);
         } catch (IOException e) {

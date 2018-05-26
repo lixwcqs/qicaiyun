@@ -79,8 +79,9 @@ public class AdviceServiceTest extends TestBaseServiceConf implements BeanFactor
     public void writeMQ() {
         int tasks = 1;
         for (int i = 0; i < tasks; i++) {
-            log.info("处理第{}个文件:" + i);
+            log.info("处理第{}个文件中...",i);
             service.writeMQ(dir + i + ".csv");
+            log.info("处理完第{}文件",i);
         }
         log.info("处理完所有的文件");
 

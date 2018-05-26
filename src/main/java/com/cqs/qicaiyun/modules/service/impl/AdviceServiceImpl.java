@@ -91,10 +91,10 @@ public class AdviceServiceImpl extends ServiceImpl<AdviceMapper, Advice> impleme
                 if (advice == null) continue;
                 mqUtil.sendMessage(advice);
                 if (++count % 10000 == 0) {
-                    log.debug("生成第{}万条消息", count / 10000);
+                    log.info("生成第{}条消息", count);
                 }
             }
-
+            log.info("处理完文件{}，一共生成消息{}条",file, count);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

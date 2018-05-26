@@ -50,7 +50,7 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="com.cqs" level="debug" additivity="false">
+        <Logger name="com.cqs" level="info" additivity="false">
             <appender-ref ref="Console"/>
             <!--<appender-ref ref="MyFile"/>-->
         </Logger>
