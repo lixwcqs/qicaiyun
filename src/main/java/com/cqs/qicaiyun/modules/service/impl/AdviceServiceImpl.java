@@ -2,7 +2,6 @@ package com.cqs.qicaiyun.modules.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.cqs.qicaiyun.common.tools.ThreadPoolUtils;
-import com.cqs.qicaiyun.common.tools.serializer.KryoUtils;
 import com.cqs.qicaiyun.modules.entity.Advice;
 import com.cqs.qicaiyun.modules.mapper.AdviceMapper;
 import com.cqs.qicaiyun.modules.service.AdviceService;
@@ -14,18 +13,14 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
-import org.springframework.context.annotation.Scope;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -34,7 +29,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Created by cqs on 2018/4/21.
  */
-@Scope(value = "prototype")
+//@Scope(value = "prototype")
 @Service
 @Log4j2
 public class AdviceServiceImpl extends ServiceImpl<AdviceMapper, Advice> implements AdviceService, BeanFactoryAware {
@@ -42,6 +37,8 @@ public class AdviceServiceImpl extends ServiceImpl<AdviceMapper, Advice> impleme
 
     private static BeanFactory factory;
 
+    @Autowired
+    private AdviceRabbitMQUtil mqUtil;
 
     private static final ThreadLocal<AdviceServiceImpl> local = new ThreadLocal<AdviceServiceImpl>() {
         @Override
@@ -64,17 +61,7 @@ public class AdviceServiceImpl extends ServiceImpl<AdviceMapper, Advice> impleme
     @Override
     public void batchInsertMQ() {
         //队列中获取消息
-        ExecutorService instance = ThreadPoolUtils.getInstance();
-        for (int i = 0; i < 8; i++) {
-            AdviceRabbitMQUtil mqUtil = factory.getBean(AdviceRabbitMQUtil.class);
-            instance.execute(mqUtil::consumer);
-        }
-
-        try {
-            TimeUnit.HOURS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        mqUtil.consumer();
     }
 
     @Override
@@ -86,22 +73,53 @@ public class AdviceServiceImpl extends ServiceImpl<AdviceMapper, Advice> impleme
             // 读表头
             csvReader.readHeaders();
             int count = 0;
+            BlockingQueue<Advice> queues = new LinkedBlockingQueue<>(100000);
+            AtomicBoolean isFinish = new AtomicBoolean(false);
+            ThreadPoolUtils.getInstance().execute(new Runnable() {
+                @Override
+                public void run() {
+                    Runnable task = new Runnable() {
+                        @Override
+                        public void run() {
+                            while (!queues.isEmpty() || !isFinish.get()) {
+                                try {
+                                    Advice advice = queues.take();
+                                    mqUtil.sendMessage(advice);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            log.info("处理消息队列完毕...");
+                        }
+                    };
+                    for (int i = 0; i < 3; i++) {
+                        ThreadPoolUtils.getInstance().execute(task);
+                    }
+
+                }
+            });
             while (csvReader.readRecord()) {
                 Advice advice = readAdvice(csvReader);
                 if (advice == null) continue;
-                mqUtil.sendMessage(advice);
+                try {
+                    queues.put(advice);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                //这个流程很慢的
+
                 if (++count % 10000 == 0) {
                     log.info("生成第{}条消息", count);
                 }
             }
-            log.info("处理完文件{}，一共生成消息{}条",file, count);
+            isFinish.set(true);
+            log.info("处理完文件{}，一共生成消息{}条", file, count);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             mqUtil.close();
         }
     }
-
 
 
     public void batchInsert(String file) {
@@ -223,6 +241,9 @@ public class AdviceServiceImpl extends ServiceImpl<AdviceMapper, Advice> impleme
             if (factory == null) {
                 factory = beanFactory;
             }
+//            if (mqUtil == null){
+//                mqUtil = factory.getBean(AdviceRabbitMQUtil.class);
+//            }
         }
     }
 }
