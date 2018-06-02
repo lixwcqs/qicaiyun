@@ -119,17 +119,25 @@ public class CacheAlgorithms {
                     resort(index);
                 }
             }
-//            System.out.println(index + "\t" + element + "\t" + this);
+            System.out.println(index + "\t" + element + "\t" + this);
         }
 
-        //////
+        /**
+         * 从新排序 因为数组基本是有序的 而且每次频率仅仅增加1
+         *
+         * @param idx
+         */
         private void resort(int idx) {
             if (idx == 0) return;
             Node node = nodes[idx];
+
+            //注意条件和边界 这里花了近一个小时
             int p = idx - 1;
+            //找到一个大于node频率的节点
             while (p >= 0 && nodes[p].frequency < node.frequency) {
                 --p;
             }
+            //交换node与p后面的元素node[p+1]肯定频率不高于node
             p++;
             if (p != idx) {
                 Node tmp = nodes[p];
