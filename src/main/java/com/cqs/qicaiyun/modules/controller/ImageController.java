@@ -44,7 +44,7 @@ public class ImageController {
         try {
             helper.setInStream(img.getInputStream());
         } catch (IOException e) {
-            throw new RuntimeException("获取文件输入流异常");
+            throw new RuntimeException("获取文件输 入流异常");
         }
         FTPUtils.upload(helper);
         //存储到文件系统
@@ -59,19 +59,15 @@ public class ImageController {
 
     @PostMapping("/upload")
     public Result upload(HttpServletRequest request) {
-        log.debug("请求进入到upload....");
-        int fc = 0;
         try {
             Collection<Part> parts = request.getParts();
             if (parts != null) {
-                log.info("parts:" + parts.size());
-                fc = parts.size();
                 byte[] buf = new byte[1024 * 512];
                 parts.stream().filter(part -> !part.getName().startsWith("qicaiyun"))
                         .forEach(part -> {
                             try (InputStream is = part.getInputStream()) {
                                 String name = part.getSubmittedFileName();
-                                log.debug("name:" + name);
+//                                log.debug("name:" + name);
                                 File file = new File(name);
                                 int len;
                                 try (FileOutputStream fos = new FileOutputStream(file)) {
@@ -89,16 +85,14 @@ public class ImageController {
         } catch (IOException | ServletException e) {
             return FailedResult.build().reason(e.getMessage());
         }
-        return SuccessResult.build().result("Hello world!" + fc);
+        return SuccessResult.build().result("SUCCESS");
     }
 
     //文件下载
     @GetMapping("/download")
     public void download(HttpServletRequest request, HttpServletResponse response) {
-        //下载文件路径
+        //下载文件路径 -- demo
         File file = new File("/home/li/Documents/sublime_text_3_build_3176_x64.tar.bz2");
-        String url = request.getParameter("url");
-        log.info("请求下载文件:{}", url);
         response.setContentType("multipart/form-data");
         response.setHeader("Content-Disposition", "attachment;filename=" + file.getName());
         try (FileInputStream fis = new FileInputStream(file)) {
