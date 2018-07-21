@@ -78,7 +78,6 @@ public class UploadClient {
                     Content-Disposition: form-data; name="qicaiyun2"; filename="WebSocketClient.java"
                     Content-type: application/octet-stream
 
-
                      **/
                     log.debug("start:" + start.toString());
                     os.write(start.toString().getBytes());
@@ -103,7 +102,6 @@ public class UploadClient {
                 os.write(end.toString().getBytes());
                 /**
                  ------WebKitFormBoundaryVc5ISK3OrIupy3EZ--
-
                  */
                 log.debug("end:" + end);
                 os.flush();
