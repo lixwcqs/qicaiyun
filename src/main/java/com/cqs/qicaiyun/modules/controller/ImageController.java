@@ -2,16 +2,22 @@ package com.cqs.qicaiyun.modules.controller;
 
 
 import com.cqs.qicaiyun.common.FTPUtils;
+import com.cqs.qicaiyun.common.result.FailedResult;
+import com.cqs.qicaiyun.common.result.Result;
+import com.cqs.qicaiyun.common.result.SuccessResult;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +25,7 @@ import java.util.Map;
  * Created by cqs on 2017/8/9.
  */
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/image/")
 @Log4j2
 public class ImageController {
 
@@ -28,7 +34,7 @@ public class ImageController {
     private FTPUtils.FTPHelper helper = FTPUtils.FTPHelper.builder().setHost(host)
             .setPort(21).setUser("uftp").setPassword("1");
 
-    @PostMapping("/upload")
+    @PostMapping("uploadImage")
     public Map<String, Object> uploadImg(@RequestParam(value = "fileDataFileName") MultipartFile img) {
         Map<String, Object> resultMap = new HashMap<>();
         String today = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
@@ -38,7 +44,7 @@ public class ImageController {
         try {
             helper.setInStream(img.getInputStream());
         } catch (IOException e) {
-            throw new RuntimeException("获取文件输入流异常");
+            throw new RuntimeException("获取文件输 入流异常");
         }
         FTPUtils.upload(helper);
         //存储到文件系统
@@ -49,5 +55,61 @@ public class ImageController {
         resultMap.put("msg", "图片上传完成");
         return resultMap;
     }
+
+
+    @PostMapping("/upload")
+    public Result upload(HttpServletRequest request) {
+        try {
+            Collection<Part> parts = request.getParts();
+            if (parts != null) {
+                byte[] buf = new byte[1024 * 512];
+                parts.stream().filter(part -> !part.getName().startsWith("qicaiyun"))
+                        .forEach(part -> {
+                            try (InputStream is = part.getInputStream()) {
+                                String name = part.getSubmittedFileName();
+//                                log.debug("name:" + name);
+                                File file = new File(name);
+                                int len;
+                                try (FileOutputStream fos = new FileOutputStream(file)) {
+                                    while ((len = is.read(buf)) != -1) {
+                                        fos.write(buf, 0, len);
+                                    }
+                                    fos.flush();
+                                }
+                                log.info("上传文件{}成功", name);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+            }
+        } catch (IOException | ServletException e) {
+            return FailedResult.build().reason(e.getMessage());
+        }
+        return SuccessResult.build().result("SUCCESS");
+    }
+
+    //文件下载
+    @GetMapping("/download")
+    public void download(HttpServletRequest request, HttpServletResponse response) {
+        //下载文件路径 -- demo
+        File file = new File("/home/li/Documents/sublime_text_3_build_3176_x64.tar.bz2");
+        response.setContentType("multipart/form-data");
+        response.setHeader("Content-Disposition", "attachment;filename=" + file.getName());
+        try (FileInputStream fis = new FileInputStream(file)) {
+            //
+            try (ServletOutputStream os = response.getOutputStream()) {
+                int len;
+                byte[] download = new byte[1024 * 512];
+                while ((len = fis.read(download)) != -1) {
+                    os.write(download, 0, len);
+                }
+                os.flush();
+            }
+            response.setContentLengthLong(file.length());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
