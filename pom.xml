@@ -3,8 +3,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cqs</groupId>
     <artifactId>qicaiyun</artifactId>
-    <!--<packaging>war</packaging>-->
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
+    <!--<packaging>jar</packaging>-->
     <version>1.0-SNAPSHOT</version>
     <name>qicaiyun Maven Webapp</name>
     <url>http://maven.apache.org</url>
@@ -12,7 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <JAVA_HOME>/home/li/softs/jdk/jdk1.8.0_172</JAVA_HOME>
+        <JAVA_HOME>C:\Program Files\Java\jdk1.8.0_72</JAVA_HOME>
         <spring.cloud.version>1.4.0.RELEASE</spring.cloud.version>
         <jackson.version>2.9.1</jackson.version>
         <motan.version>1.1.0</motan.version>
@@ -108,6 +108,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>com.caucho</groupId>
@@ -471,7 +478,6 @@
         </dependency>
 
 
-
         <!--开发者工具-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -498,55 +504,52 @@
             </plugin>
 
 
-            <!-- Package as an executable jar -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <!--<dependencies>-->
-                <!--<dependency>-->
-                <!--<groupId>org.springframework</groupId>-->
-                <!--<artifactId>springloaded</artifactId>-->
-                <!--<version>1.2.8.RELEASE</version>-->
-                <!--</dependency>-->
-                <!--</dependencies>-->
-                <configuration>
-                    <fork>true</fork>
-                    <mainClass>com.cqs.Application</mainClass>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
+            <!--&lt;!&ndash; Package as an executable jar &ndash;&gt;-->
+            <!--<plugin>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+            <!--&lt;!&ndash;<dependencies>&ndash;&gt;-->
+            <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+            <!--&lt;!&ndash;<groupId>org.springframework</groupId>&ndash;&gt;-->
+            <!--&lt;!&ndash;<artifactId>springloaded</artifactId>&ndash;&gt;-->
+            <!--&lt;!&ndash;<version>1.2.8.RELEASE</version>&ndash;&gt;-->
+            <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+            <!--&lt;!&ndash;</dependencies>&ndash;&gt;-->
+            <!--<configuration>-->
+            <!--<fork>true</fork>-->
+            <!--<mainClass>com.cqs.Application</mainClass>-->
+            <!--</configuration>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<goals>-->
+            <!--<goal>repackage</goal>-->
+            <!--</goals>-->
+            <!--</execution>-->
+            <!--</executions>-->
 
-            </plugin>
+            <!--</plugin>-->
 
 
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>1.0.0</version>
-                <configuration>
-                    <!-- ${project.artifactId}：即artifactId，myservice1-docker ${project.version}:即version，1.0-SNAPSHOT -->
-                    <imageName>${project.artifactId}:${project.version}</imageName><!-- 镜像名称 -->
-                    <dockerDirectory>${basedir}/src/main/resources/docker</dockerDirectory><!-- Dockerfile文件地址 -->
-                    <resources>
-                        <resource>
-                            <!-- <targetPath>/</targetPath> -->
-                            <!-- ${project.build.directory},项目构建输出目录，默认为target/ -->
-                            <directory>${project.build.directory}</directory>
-                            <!-- ${project.build.directory},打包出来的jar名称，默认为${project.artifactId}-${project.version} -->
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
-
+            <!--<plugin>-->
+            <!--<groupId>com.spotify</groupId>-->
+            <!--<artifactId>docker-maven-plugin</artifactId>-->
+            <!--<version>1.0.0</version>-->
+            <!--<configuration>-->
+            <!--&lt;!&ndash; ${project.artifactId}：即artifactId，myservice1-docker ${project.version}:即version，1.0-SNAPSHOT &ndash;&gt;-->
+            <!--<imageName>${project.artifactId}:${project.version}</imageName>&lt;!&ndash; 镜像名称 &ndash;&gt;-->
+            <!--<dockerDirectory>${basedir}/src/main/resources/docker</dockerDirectory>&lt;!&ndash; Dockerfile文件地址 &ndash;&gt;-->
+            <!--<resources>-->
+            <!--<resource>-->
+            <!--&lt;!&ndash; <targetPath>/</targetPath> &ndash;&gt;-->
+            <!--&lt;!&ndash; ${project.build.directory},项目构建输出目录，默认为target/ &ndash;&gt;-->
+            <!--<directory>${project.build.directory}</directory>-->
+            <!--&lt;!&ndash; ${project.build.directory},打包出来的jar名称，默认为${project.artifactId}-${project.version} &ndash;&gt;-->
+            <!--<include>${project.build.finalName}.jar</include>-->
+            <!--</resource>-->
+            <!--</resources>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
 
         </plugins>
-
-
     </build>
 </project>

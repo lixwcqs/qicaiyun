@@ -4,7 +4,9 @@ import com.weibo.api.motan.common.MotanConstants;
 import com.weibo.api.motan.util.MotanSwitcherUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
  * 置于项目根目录下
@@ -13,9 +15,12 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 // and @ComponentScan with their default attributes:
 @SpringBootApplication
 @ServletComponentScan
-public class Application {
+public class Application extends SpringBootServletInitializer{
 
-
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(Application.class);
+    }
 
     public static void main(String[] args) {
         MotanSwitcherUtil.setSwitcherValue(MotanConstants.REGISTRY_HEARTBEAT_SWITCHER, true);
