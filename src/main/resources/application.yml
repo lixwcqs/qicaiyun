@@ -23,6 +23,8 @@ spring:
       charset: UTF-8
       force: true
       enabled: true
+  main:
+    allow-bean-definition-overriding: true
 #     mode: HTML5
 server:
   port: 9090
