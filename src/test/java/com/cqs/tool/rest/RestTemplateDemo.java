@@ -45,7 +45,7 @@ public class RestTemplateDemo {
 //    @Test(dataProvider = "ids")
 //    public void someRestCall(Long id) {
 //        restTemplate = createRestTemplate();
-//        Article article = restTemplate.getForObject(getURL("/article/find/{id}"),
+//        Article article = restTemplate.getForObject(getURL("/article/findById/{id}"),
 //                Article.class, id);
 //        System.out.println(article);
 //        assertEquals(article.getId(), id);

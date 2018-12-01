@@ -1,4 +1,4 @@
-package com.cqs.qicaiyun.common.mongo;
+package com.cqs.qicaiyun.modules.dao.mongo;
 
 import com.mongodb.client.result.DeleteResult;
 
@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface MongoBaseDao<T, S extends Serializable>  {
 
-    void insert(T entity);
+    T insert(T entity);
 
     /**
      * Saves all given entities.
@@ -20,7 +20,7 @@ public interface MongoBaseDao<T, S extends Serializable>  {
      * @return the saved entities
      * @throws IllegalArgumentException in case the given entity is {@literal null}.
      */
-    void batchInsert(Collection<T> entities);
+    Collection<T> batchInsert(Collection<T> entities);
 
     /**
      * Retrieves an entity by its id.

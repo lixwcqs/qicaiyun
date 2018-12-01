@@ -1,4 +1,4 @@
-package com.cqs.qicaiyun.common.mongo;
+package com.cqs.qicaiyun.modules.dao.mongo;
 
 import com.mongodb.client.result.DeleteResult;
 import org.springframework.data.domain.Example;
@@ -22,17 +22,10 @@ import java.util.List;
  * <p>
  * Created by cqs on 2017/5/29.
  */
-public abstract class MongoBaseDaoImpl<T, D extends Serializable> implements MongoBaseDao<T, D> {
+public abstract class AbstractMongoBaseDaoImpl<T, D extends Serializable> implements MongoBaseDao<T, D> {
 
-    private MongoTemplate template;
 
-    public MongoBaseDaoImpl(MongoTemplate template) {
-        this.template = template;
-    }
-
-    protected MongoTemplate getTemplate() {
-        return this.template;
-    }
+    protected abstract MongoTemplate getTemplate();
 
     /***
      * 求解实体类的类类型
@@ -46,33 +39,22 @@ public abstract class MongoBaseDaoImpl<T, D extends Serializable> implements Mon
         return entityClass;
     }
 
-    //--------------------------------增----------------------------------------------------
     @Override
-    public void insert(T entity) {
-        getTemplate().insert(entity);
+    public T insert(T entity) {
+        return getTemplate().insert(entity);
     }
 
-    //
     @Override
-    public void batchInsert(Collection<T> entities) {
-        getTemplate().insertAll(entities);
+    public Collection<T> batchInsert(Collection<T> entities) {
+        return getTemplate().insertAll(entities);
     }
 
-    //--------------------------------删----------------------------------------------------
     @Override
     public DeleteResult deleteAll() {
         return getTemplate().remove(new Query(), getEntityClass());
     }
 
 
-    //--------------------------------改----------------------------------------------------
-    //为了不丢失属性 觉得 具体的修改 需要在具体的业务层做
-    public void update(T entity) {
-        getTemplate().save(entity);
-    }
-
-
-    //--------------------------------查----------------------------------------------------
     @Override
     public List<T> findByExample(T entity) {
         Criteria criteria = Criteria.byExample(Example.of(entity));
@@ -107,7 +89,7 @@ public abstract class MongoBaseDaoImpl<T, D extends Serializable> implements Mon
     @Override
     public DeleteResult deleteById(D id) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("id").is(id));//
+        query.addCriteria(Criteria.where("id").is(id));
         return getTemplate().remove(query, getEntityClass());
     }
 
@@ -115,7 +97,4 @@ public abstract class MongoBaseDaoImpl<T, D extends Serializable> implements Mon
     public DeleteResult delete(T entity) {
         return getTemplate().remove(entity);
     }
-
-
-    //查询和更新
 }
